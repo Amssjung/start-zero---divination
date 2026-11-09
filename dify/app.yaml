@@ -1,0 +1,3662 @@
+app:
+  description: ''
+  icon: 👻
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: advanced-chat
+  name: 卦
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.2.26@6c75a6b95954ef3c97f0d3225bad7cbfbff7cdbc82d9425074aae121cc056a64
+    version: null
+kind: app
+site:
+  chat_color_theme: null
+  chat_color_theme_inverted: false
+  copyright: null
+  custom_disclaimer: ''
+  default_language: zh-Hans
+  description: null
+  icon: 👻
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  input_placeholder: null
+  privacy_policy: null
+  show_workflow_steps: true
+  title: 卦
+  use_icon_as_answer_icon: false
+version: 0.7.0
+workflow:
+  conversation_variables:
+  - description: '正在等待用户补充的参数所属方法：bazi / 空
+
+      '
+    id: 807c3b0b-4d90-4d39-89a1-b11c6351e5bd
+    name: pending
+    selector:
+    - conversation
+    - pending
+    value: ''
+    value_type: string
+  - description: '本轮占卜盘面的可读文本，例如「过去：愚者（正位）／现在：圣杯三（逆位）／未来：星星（正位）」。
+
+      解读节点直接使用；只在起盘时写入一次，追问时只读不改。'
+    id: 91ab2bba-89a1-49c4-9110-c03a012c167c
+    name: board_text
+    selector:
+    - conversation
+    - board_text
+    value: ''
+    value_type: string
+  - description: 当前是第几轮追问
+    id: 9418f7ef-cc3a-4c23-aa3a-7f67b297b501
+    name: round
+    selector:
+    - conversation
+    - round
+    value: 0
+    value_type: integer
+  - description: 历史问答记录（JSON 数组字符串）
+    id: 38d9bb19-4330-4a58-ac1d-9e1a13849e2a
+    name: history
+    selector:
+    - conversation
+    - history
+    value: '[]'
+    value_type: string
+  - description: '本轮盘面的完整 JSON，含牌名、正逆位、随机种子等，供程序解析。
+
+      不要直接喂给模型，模型读 board_text。'
+    id: 6787e95f-be4c-4289-af7d-46970558c1b6
+    name: board
+    selector:
+    - conversation
+    - board
+    value: ''
+    value_type: string
+  - description: '用户诉求方向：marriage / matter / fortune
+
+      topic:   marriage | matter | fortune'
+    id: 06f01ec4-915e-4486-a412-a3d51f4fb265
+    name: topic
+    selector:
+    - conversation
+    - topic
+    value: ''
+    value_type: string
+  - description: '当前占卜方法：bazi / tarot / liuyao
+
+      method:  bazi  | tarot | liuyao'
+    id: bb13eabb-ac36-4b4d-a2e1-409b6e6a8a04
+    name: method
+    selector:
+    - conversation
+    - method
+    value: ''
+    value_type: string
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        knowledge_file_size_limit: 15
+        single_chunk_attachment_limit: 10
+        skill_file_size_limit: 50
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: '你好，我是星询。
+
+
+      可以用三十秒告诉我你想看什么——事业、感情，还是最近卡住的一个决定？
+
+
+      我会用八字、塔罗、六爻、黄历或星座里合适的一种，陪你把它看清楚。'
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: true
+    suggested_questions:
+    - 看看我今年的感情
+    - 最近这件事能不能成
+    - 我想知道自己适合什么方向
+    suggested_questions_after_answer:
+      enabled: true
+      model:
+        completion_params:
+          echo: false
+          frequency_penalty: 0
+          max_tokens: 0
+          presence_penalty: 0
+          stop: []
+          temperature: 0.7
+          top_p: 0
+        mode: chat
+        name: qwen3.8-flash
+        provider: langgenius/tongyi/tongyi
+    text_to_speech:
+      enabled: true
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: code
+      id: 1793868656846-source-1793876763202-target
+      selected: false
+      source: '1793868656846'
+      sourceHandle: source
+      target: '1793876763202'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: parameter-extractor
+      id: 1793868875799-0a6c7fc5-19ca-4c68-b257-635f38db46b9-17939466020990-target
+      selected: false
+      source: '1793868875799'
+      sourceHandle: 0a6c7fc5-19ca-4c68-b257-635f38db46b9
+      target: '17939466020990'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: parameter-extractor
+      id: 1793868875799-1-1793869548338-target
+      selected: false
+      source: '1793868875799'
+      sourceHandle: '1'
+      target: '1793869548338'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: code
+      id: 1793868875799-2-1793869250492-target
+      selected: false
+      source: '1793868875799'
+      sourceHandle: '2'
+      target: '1793869250492'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: code
+      id: 1793868875799-8f3c4658-27d0-40e1-a2f6-3135e7b88c81-1793936774506-target
+      selected: false
+      source: '1793868875799'
+      sourceHandle: 8f3c4658-27d0-40e1-a2f6-3135e7b88c81
+      target: '1793936774506'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: code
+      id: 1793868875799-cbee4e1f-4f78-486c-afe9-6b52b929eba7-1793937256528-target
+      selected: false
+      source: '1793868875799'
+      sourceHandle: cbee4e1f-4f78-486c-afe9-6b52b929eba7
+      target: '1793937256528'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: if-else
+      id: 1793868875799-cdd6e1a1-879c-47a6-b658-28f312f606cf-1793870369850-target
+      selected: false
+      source: '1793868875799'
+      sourceHandle: cdd6e1a1-879c-47a6-b658-28f312f606cf
+      target: '1793870369850'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: answer
+      id: 1793868875799-d60723b2-9d7a-42b5-b626-65cb0311267c-1793928005028-target
+      selected: false
+      source: '1793868875799'
+      sourceHandle: d60723b2-9d7a-42b5-b626-65cb0311267c
+      target: '1793928005028'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: code
+      id: 1793868875799-ffc55612-c321-44c5-bca0-65997b2ce908-1793869341162-target
+      selected: false
+      source: '1793868875799'
+      sourceHandle: ffc55612-c321-44c5-bca0-65997b2ce908
+      target: '1793869341162'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1793869169484-source-1793871454104-target
+      selected: false
+      source: '1793869169484'
+      sourceHandle: source
+      target: '1793871454104'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: if-else
+      id: 1793869218078-source-1793870490127-target
+      selected: false
+      source: '1793869218078'
+      sourceHandle: source
+      target: '1793870490127'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: if-else
+      id: 1793869245975-source-1793870490127-target
+      selected: false
+      source: '1793869245975'
+      sourceHandle: source
+      target: '1793870490127'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: assigner
+      id: 1793869250492-source-1793869245975-target
+      selected: false
+      source: '1793869250492'
+      sourceHandle: source
+      target: '1793869245975'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: assigner
+      id: 1793869341162-source-1793869385233-target
+      selected: false
+      source: '1793869341162'
+      sourceHandle: source
+      target: '1793869385233'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: if-else
+      id: 1793869385233-source-1793870490127-target
+      selected: false
+      source: '1793869385233'
+      sourceHandle: source
+      target: '1793870490127'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: parameter-extractor
+        targetType: code
+      id: 1793869548338-source-1793869169484-target
+      selected: false
+      source: '1793869548338'
+      sourceHandle: source
+      target: '1793869169484'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1793870369850-false-1793870490127-target
+      selected: false
+      source: '1793870369850'
+      sourceHandle: 'false'
+      target: '1793870490127'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1793870369850-true-1793870424430-target
+      selected: false
+      source: '1793870369850'
+      sourceHandle: 'true'
+      target: '1793870424430'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1793870490127-2d0c741c-6c79-44bb-94ad-c47cae26790a-1793936937944-target
+      selected: false
+      source: '1793870490127'
+      sourceHandle: 2d0c741c-6c79-44bb-94ad-c47cae26790a
+      target: '1793936937944'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1793870490127-3e89f309-96f2-40f8-b545-d714c7aee661-1793870585983-target
+      selected: false
+      source: '1793870490127'
+      sourceHandle: 3e89f309-96f2-40f8-b545-d714c7aee661
+      target: '1793870585983'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1793870490127-77901009-95a8-4c25-9915-fb9a4f26c487-1793937440889-target
+      selected: false
+      source: '1793870490127'
+      sourceHandle: 77901009-95a8-4c25-9915-fb9a4f26c487
+      target: '1793937440889'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1793870490127-c04829df-fc47-4180-add6-9530d7e3f0bf-1793870569214-target
+      selected: false
+      source: '1793870490127'
+      sourceHandle: c04829df-fc47-4180-add6-9530d7e3f0bf
+      target: '1793870569214'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1793870490127-c947b906-0d91-4add-bfd9-af14f060eee4-1793944010152-target
+      selected: false
+      source: '1793870490127'
+      sourceHandle: c947b906-0d91-4add-bfd9-af14f060eee4
+      target: '1793944010152'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1793870490127-false-1793870915175-target
+      selected: false
+      source: '1793870490127'
+      sourceHandle: 'false'
+      target: '1793870915175'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1793870490127-true-1793870557905-target
+      selected: false
+      source: '1793870490127'
+      sourceHandle: 'true'
+      target: '1793870557905'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1793870557905-source-1793925563180-target
+      selected: false
+      source: '1793870557905'
+      sourceHandle: source
+      target: '1793925563180'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1793870569214-source-1793925584751-target
+      selected: false
+      source: '1793870569214'
+      sourceHandle: source
+      target: '1793925584751'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1793870585983-source-1793925574375-target
+      selected: false
+      source: '1793870585983'
+      sourceHandle: source
+      target: '1793925574375'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1793871454104-false-1793869218078-target
+      selected: false
+      source: '1793871454104'
+      sourceHandle: 'false'
+      target: '1793869218078'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1793871454104-true-1793929109966-target
+      selected: false
+      source: '1793871454104'
+      sourceHandle: 'true'
+      target: '1793929109966'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: code
+      id: 1793876763202-source-1793928618366-target
+      selected: false
+      source: '1793876763202'
+      sourceHandle: source
+      target: '1793928618366'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: assigner
+      id: 1793878248332-source-1793878385630-target
+      selected: false
+      source: '1793878248332'
+      sourceHandle: source
+      target: '1793878385630'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: answer
+      id: 1793878385630-source-answer-target
+      source: '1793878385630'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: variable-aggregator
+        targetType: code
+      id: 1793880150321-source-1793926082625-target
+      selected: false
+      source: '1793880150321'
+      sourceHandle: source
+      target: '1793926082625'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1793925563180-source-1793880150321-target
+      selected: false
+      source: '1793925563180'
+      sourceHandle: source
+      target: '1793880150321'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1793925574375-source-1793880150321-target
+      selected: false
+      source: '1793925574375'
+      sourceHandle: source
+      target: '1793880150321'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1793925584751-source-1793880150321-target
+      selected: false
+      source: '1793925584751'
+      sourceHandle: source
+      target: '1793880150321'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: code
+      id: 1793926082625-source-1793878248332-target
+      selected: false
+      source: '1793926082625'
+      sourceHandle: source
+      target: '1793878248332'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1793928618366-source-1793928828480-target
+      selected: false
+      source: '1793928618366'
+      sourceHandle: source
+      target: '1793928828480'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1793928828480-17b2bccb-7817-4866-ab71-ecb4660d550c-1793870369850-target
+      selected: false
+      source: '1793928828480'
+      sourceHandle: 17b2bccb-7817-4866-ab71-ecb4660d550c
+      target: '1793870369850'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: code
+      id: 1793928828480-4a7463f0-dac8-4515-9495-24a0afcc8af7-1793937256528-target
+      selected: false
+      source: '1793928828480'
+      sourceHandle: 4a7463f0-dac8-4515-9495-24a0afcc8af7
+      target: '1793937256528'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: parameter-extractor
+      id: 1793928828480-eda689f5-3caa-4ed1-90d9-16aa6ab07992-17939466020990-target
+      selected: false
+      source: '1793928828480'
+      sourceHandle: eda689f5-3caa-4ed1-90d9-16aa6ab07992
+      target: '17939466020990'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: question-classifier
+      id: 1793928828480-false-1793868875799-target
+      selected: false
+      source: '1793928828480'
+      sourceHandle: 'false'
+      target: '1793868875799'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: parameter-extractor
+      id: 1793928828480-true-1793869548338-target
+      selected: false
+      source: '1793928828480'
+      sourceHandle: 'true'
+      target: '1793869548338'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: answer
+      id: 1793929109966-source-1793871468345-target
+      selected: false
+      source: '1793929109966'
+      sourceHandle: source
+      target: '1793871468345'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: assigner
+      id: 1793936774506-source-1793936833237-target
+      selected: false
+      source: '1793936774506'
+      sourceHandle: source
+      target: '1793936833237'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: if-else
+      id: 1793936833237-source-1793870490127-target
+      selected: false
+      source: '1793936833237'
+      sourceHandle: source
+      target: '1793870490127'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1793936937944-source-1793936967075-target
+      selected: false
+      source: '1793936937944'
+      sourceHandle: source
+      target: '1793936967075'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1793936967075-source-1793880150321-target
+      selected: false
+      source: '1793936967075'
+      sourceHandle: source
+      target: '1793880150321'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1793937256528-source-1793947984850-target
+      selected: false
+      source: '1793937256528'
+      sourceHandle: source
+      target: '1793947984850'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: if-else
+      id: 1793937362536-source-1793870490127-target
+      selected: false
+      source: '1793937362536'
+      sourceHandle: source
+      target: '1793870490127'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1793937440889-source-1793937462771-target
+      selected: false
+      source: '1793937440889'
+      sourceHandle: source
+      target: '1793937462771'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1793937462771-source-1793880150321-target
+      selected: false
+      source: '1793937462771'
+      sourceHandle: source
+      target: '1793880150321'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1793943160199-source-1793943335845-target
+      selected: false
+      source: '1793943160199'
+      sourceHandle: source
+      target: '1793943335845'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1793943335845-false-1793943435543-target
+      selected: false
+      source: '1793943335845'
+      sourceHandle: 'false'
+      target: '1793943435543'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1793943335845-true-1793946111053-target
+      selected: false
+      source: '1793943335845'
+      sourceHandle: 'true'
+      target: '1793946111053'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: if-else
+      id: 1793943435543-source-1793870490127-target
+      selected: false
+      source: '1793943435543'
+      sourceHandle: source
+      target: '1793870490127'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1793944010152-source-1793945366132-target
+      selected: false
+      source: '1793944010152'
+      sourceHandle: source
+      target: '1793945366132'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1793945366132-source-1793880150321-target
+      selected: false
+      source: '1793945366132'
+      sourceHandle: source
+      target: '1793880150321'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: answer
+      id: 1793946111053-source-1793943384227-target
+      selected: false
+      source: '1793946111053'
+      sourceHandle: source
+      target: '1793943384227'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: parameter-extractor
+        targetType: code
+      id: 17939466020990-source-1793943160199-target
+      selected: false
+      source: '17939466020990'
+      sourceHandle: source
+      target: '1793943160199'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1793947984850-false-1793937362536-target
+      selected: false
+      source: '1793947984850'
+      sourceHandle: 'false'
+      target: '1793937362536'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1793947984850-true-1793948009899-target
+      selected: false
+      source: '1793947984850'
+      sourceHandle: 'true'
+      target: '1793948009899'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: answer
+      id: 1793948009899-source-1793948069130-target
+      selected: false
+      source: '1793948009899'
+      sourceHandle: source
+      target: '1793948069130'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: 接收用户输入
+        selected: false
+        title: 用户输入
+        type: start
+        variables:
+        - default: 0
+          hide: false
+          hint: ''
+          label: lunar_year
+          options: []
+          placeholder: ''
+          required: false
+          type: number
+          variable: lunar_year
+        - default: 0
+          hint: ''
+          label: lunar_month
+          options: []
+          placeholder: ''
+          required: false
+          type: number
+          variable: lunar_month
+        - default: 0
+          hint: ''
+          label: lunar_day
+          options: []
+          placeholder: ''
+          required: false
+          type: number
+          variable: lunar_day
+        - default: 0
+          hint: ''
+          label: hour_index
+          options: []
+          placeholder: ''
+          required: false
+          type: number
+          variable: hour_index
+        - default: ''
+          hint: ''
+          label: gender
+          options: []
+          placeholder: ''
+          required: false
+          type: text-input
+          variable: gender
+      height: 241
+      id: '1793868656846'
+      position:
+        x: 0
+        y: 799.3333333333333
+      positionAbsolute:
+        x: 0
+        y: 799.3333333333333
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        classes:
+        - id: '1'
+          label: CLASS 1
+          name: '用户明确要用生辰八字、四柱、命理来测算。
+
+            典型说法：「用八字看看」「帮我排个盘」「按生辰算一下」，或直接给出出生年月日时并要求算命。
+
+            注意：只提到生日但没有说要算命，不算这一类。'
+        - id: '2'
+          label: CLASS 2
+          name: '用户明确要用塔罗牌测算。
+
+            典型说法：「用塔罗看看」「抽张牌」「塔罗牌阵」。
+
+            注意：只说「帮我算算」但没提塔罗，不算这一类。'
+        - id: ffc55612-c321-44c5-bca0-65997b2ce908
+          label: CLASS 3
+          name: '用户明确要用六爻起卦。
+
+            典型说法：「摇一卦」「用六爻」「起个卦看看」「卜一卦」。'
+        - id: 8f3c4658-27d0-40e1-a2f6-3135e7b88c81
+          label: CLASS 6
+          name: '用户要查某一天的日子好不好，或问某个日期适合做什么。
+
+            典型说法：「看看明天」「11 月 8 号适合签约吗」「这周哪天好」「黄历」。'
+        - id: cbee4e1f-4f78-486c-afe9-6b52b929eba7
+          label: CLASS 7
+          name: '用户用星座、太阳星座、星盘来问自己或他人的性格与运势。
+
+            典型说法：「看看我的星座」「我是什么星座」「星座运势」。
+
+            注意：只问运势但没提星座，不算这一类。'
+        - id: 0a6c7fc5-19ca-4c68-b257-635f38db46b9
+          label: CLASS 8
+          name: '用户要用紫微斗数看盘。
+
+            典型说法：「用紫微看看」「排个紫微盘」「看我的命宫」。
+
+            注意：只问命理但没提紫微，不算这一类。'
+        - id: cdd6e1a1-879c-47a6-b658-28f312f606cf
+          label: CLASS 4
+          name: '用户针对已经得到的占卜结果继续提问，没有要求换方法或重新起盘。
+
+            典型说法：「那下个月呢」「为什么会这样」「具体指什么」「那我该怎么办」。
+
+            注意：只有当前已经有过占卜结果时才属于这一类。'
+        - id: d60723b2-9d7a-42b5-b626-65cb0311267c
+          label: CLASS 5
+          name: '不适合以上任何一类的情况，包括：
+
+            - 打招呼、寒暄：「你好」「在吗」
+
+            - 咨询用法：「你能做什么」「怎么用」
+
+            - 想占卜但没说方法：「帮我算算感情」「看看我最近运势」'
+        desc: 意图识别
+        instruction: '判断用户这句话属于哪一类。只输出一个类别名，不要解释。
+
+          判断依据是「用户想做什么」，不是「他提到了什么词」。'
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          window:
+            enabled: true
+            size: 100
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.8-flash
+          provider: langgenius/tongyi/tongyi
+        query_variable_selector:
+        - '1793868656846'
+        - sys.query
+        selected: false
+        title: 问题分类器
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 458
+      id: '1793868875799'
+      position:
+        x: 1388
+        y: 1602.888888888889
+      positionAbsolute:
+        x: 1388
+        y: 1602.888888888889
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        code: "import json\nimport re\n\n\ndef parse_date(s):\n    t = str(s or \"\
+          \").strip()\n    m = re.search(r\"(\\d{2,4})\\D+(\\d{1,2})\\D+(\\d{1,2})\"\
+          , t)\n    if not m:\n        return None\n    y, mo, d = int(m.group(1)),\
+          \ int(m.group(2)), int(m.group(3))\n    if y < 100:\n        y += 2000 if\
+          \ y <= 30 else 1900\n    if not (1900 <= y <= 2100 and 1 <= mo <= 12 and\
+          \ 1 <= d <= 31):\n        return None\n    return y, mo, d\n\n\ndef parse_time(s):\n\
+          \    t = str(s or \"\").strip()\n    if not t:\n        return None\n\n\
+          \    m = re.search(r\"(\\d{1,2})\\s*[:：]\\s*(\\d{1,2})\", t)\n    if m:\n\
+          \        h, mi = int(m.group(1)), int(m.group(2))\n        if 0 <= h <=\
+          \ 23 and 0 <= mi <= 59:\n            return h, mi\n\n    SHICHEN = {\"子\"\
+          : 23, \"丑\": 1, \"寅\": 3, \"卯\": 5, \"辰\": 7, \"巳\": 9,\n              \
+          \ \"午\": 11, \"未\": 13, \"申\": 15, \"酉\": 17, \"戌\": 19, \"亥\": 21}\n  \
+          \  for k, v in SHICHEN.items():\n        if k + \"时\" in t:\n          \
+          \  return v, 0\n\n    m = re.search(r\"(\\d{1,2})\\s*[点時时]\", t)\n    if\
+          \ m:\n        h = int(m.group(1))\n        if any(w in t for w in (\"下午\"\
+          , \"晚上\", \"傍晚\")) and h < 12:\n            h += 12\n        if \"中午\" in\
+          \ t and h < 6:\n            h += 12\n        if 0 <= h <= 23:\n        \
+          \    return h, 0\n\n    return None\n\n\ndef main(birth_date: str, birth_time:\
+          \ str = \"\", gender: str = \"\",\n         query: str = \"\", topic: str\
+          \ = \"\",topic_old: str = \"\") -> dict:\n\n    GAN = \"甲乙丙丁戊己庚辛壬癸\"\n \
+          \   ZHI = \"子丑寅卯辰巳午未申酉戌亥\"\n    GAN_WX = {\"甲\": \"木\", \"乙\": \"木\", \"\
+          丙\": \"火\", \"丁\": \"火\", \"戊\": \"土\",\n              \"己\": \"土\", \"\
+          庚\": \"金\", \"辛\": \"金\", \"壬\": \"水\", \"癸\": \"水\"}\n    ZHI_WX = {\"\
+          子\": \"水\", \"丑\": \"土\", \"寅\": \"木\", \"卯\": \"木\", \"辰\": \"土\",\n  \
+          \            \"巳\": \"火\", \"午\": \"火\", \"未\": \"土\", \"申\": \"金\", \"\
+          酉\": \"金\",\n              \"戌\": \"土\", \"亥\": \"水\"}\n    TERM = {1: 6,\
+          \ 2: 4, 3: 6, 4: 5, 5: 6, 6: 6,\n            7: 7, 8: 8, 9: 8, 10: 8, 11:\
+          \ 7, 12: 7}\n    DAY_OFFSET = 49\n\n    topic = str(topic or \"\").strip()\
+          \ or str(topic_old or \"\").strip()\n    if topic not in (\"marriage\",\
+          \ \"matter\", \"fortune\"):\n        topic = \"\"\n\n    parsed = parse_date(birth_date)\n\
+          \    if parsed is None:\n        return {\n            \"ok\": False,\n\
+          \            \"hint\": \"我还需要你的出生日期（公历年月日），比如「1998年3月12日」。\",\n        \
+          \    \"board\": \"\",\n            \"board_text\": \"\",\n        }\n\n\
+          \    y, m, d = parsed\n\n    tm = parse_time(birth_time)\n    has_time =\
+          \ tm is not None\n\n    yy = y if (m, d) >= (2, 4) else y - 1\n    yg =\
+          \ (yy - 4) % 10\n    yz = (yy - 4) % 12\n\n    idx = m % 12\n    if d <\
+          \ TERM.get(m, 6):\n        idx = (m - 1) % 12\n    morder = (idx - 2) %\
+          \ 12\n    mg = ((yg * 2 + 2) % 10 + morder) % 10\n\n    a = (14 - m) //\
+          \ 12\n    y2 = y + 4800 - a\n    m2 = m + 12 * a - 3\n    jdn = d + (153\
+          \ * m2 + 2) // 5 + 365 * y2 + y2 // 4 - y2 // 100 + y2 // 400 - 32045\n\
+          \    dg = (jdn + DAY_OFFSET) % 10\n    dz = (jdn + DAY_OFFSET) % 12\n\n\
+          \    hg = hz = -1\n    if has_time:\n        hh = tm[0]\n        hz = ((hh\
+          \ + 1) // 2) % 12\n        hg = ((dg * 2) % 10 + hz) % 10\n\n    sizhu =\
+          \ {\n        \"year\": GAN[yg] + ZHI[yz],\n        \"month\": GAN[mg] +\
+          \ ZHI[idx],\n        \"day\": GAN[dg] + ZHI[dz],\n        \"hour\": (GAN[hg]\
+          \ + ZHI[hz]) if has_time else \"\",\n    }\n\n    wx = {\"金\": 0, \"木\"\
+          : 0, \"水\": 0, \"火\": 0, \"土\": 0}\n    for g, z in ((yg, yz), (mg, idx),\
+          \ (dg, dz)):\n        wx[GAN_WX[GAN[g]]] += 1\n        wx[ZHI_WX[ZHI[z]]]\
+          \ += 1\n    if has_time:\n        wx[GAN_WX[GAN[hg]]] += 1\n        wx[ZHI_WX[ZHI[hz]]]\
+          \ += 1\n\n    board = {\n        \"method\": \"bazi\",\n        \"topic\"\
+          : topic,\n        \"question\": query or \"\",\n        \"birth\": {\"date\"\
+          : \"%04d-%02d-%02d\" % (y, m, d),\n                  \"time\": (\"%02d:%02d\"\
+          \ % tm) if has_time else \"\",\n                  \"gender\": str(gender\
+          \ or \"\").strip().lower()},\n        \"sizhu\": sizhu,\n        \"day_master\"\
+          : GAN[dg] + GAN_WX[GAN[dg]],\n        \"wuxing\": wx,\n        \"precision\"\
+          : \"simplified\",\n    }\n\n    lines = [\"【四柱】\",\n             \"年柱 %s\
+          \   月柱 %s   日柱 %s\" % (sizhu[\"year\"], sizhu[\"month\"], sizhu[\"day\"\
+          ])]\n    if has_time:\n        lines.append(\"时柱 %s\" % sizhu[\"hour\"])\n\
+          \    else:\n        lines.append(\"时柱 未知（未提供出生时刻）\")\n    lines.append(\"\
+          【日主】%s\" % board[\"day_master\"])\n    lines.append(\"【五行】\" + \"  \".join(\"\
+          %s%d\" % (k, v) for k, v in wx.items()))\n\n    hint = \"\"\n    if not\
+          \ has_time:\n        hint = \"时柱缺失，解读只能到日柱。想更准的话，告诉我大概几点出生。\"\n\n    return\
+          \ {\n        \"ok\": True,\n        \"hint\": hint,\n        \"board\":\
+          \ json.dumps(board, ensure_ascii=False),\n        \"board_text\": \"\\n\"\
+          .join(lines),\n    }"
+        code_language: python3
+        desc: 公历-->四柱排盘
+        outputs:
+          board:
+            children: null
+            type: string
+          board_text:
+            children: null
+            type: string
+          hint:
+            children: null
+            type: string
+          ok:
+            children: null
+            type: boolean
+        selected: false
+        title: 转换日历
+        type: code
+        variables:
+        - value_selector:
+          - '1793869548338'
+          - birth_date
+          value_type: string
+          variable: birth_date
+        - value_selector:
+          - '1793869548338'
+          - birth_time
+          value_type: string
+          variable: birth_time
+        - value_selector:
+          - '1793869548338'
+          - gender
+          value_type: string
+          variable: gender
+        - value_selector:
+          - sys
+          - query
+          value_type: string
+          variable: query
+        - value_selector:
+          - '1793876763202'
+          - topic
+          value_type: string
+          variable: topic
+        - value_selector:
+          - conversation
+          - topic
+          value_type: string
+          variable: topic_old
+      height: 80
+      id: '1793869169484'
+      position:
+        x: 2092
+        y: 126
+      positionAbsolute:
+        x: 2092
+        y: 126
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        desc: board/method/topic
+        items:
+        - input_type: constant
+          operation: set
+          value: bazi
+          variable_selector:
+          - conversation
+          - method
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1793876763202'
+          - topic
+          variable_selector:
+          - conversation
+          - topic
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1793869169484'
+          - board
+          variable_selector:
+          - conversation
+          - board
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1793869169484'
+          - board_text
+          variable_selector:
+          - conversation
+          - board_text
+        - input_type: constant
+          operation: set
+          value: ''''''
+          variable_selector:
+          - conversation
+          - pending
+        selected: false
+        title: 变量赋值-八字
+        type: assigner
+        version: '2'
+      height: 216
+      id: '1793869218078'
+      position:
+        x: 2796
+        y: 173
+      positionAbsolute:
+        x: 2796
+        y: 173
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        desc: board/method/topic
+        items:
+        - input_type: constant
+          operation: set
+          value: tarot
+          variable_selector:
+          - conversation
+          - method
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1793876763202'
+          - topic
+          variable_selector:
+          - conversation
+          - topic
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1793869250492'
+          - board
+          variable_selector:
+          - conversation
+          - board
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1793869250492'
+          - board_text
+          variable_selector:
+          - conversation
+          - board_text
+        selected: false
+        title: 变量赋值 -塔罗
+        type: assigner
+        version: '2'
+      height: 190
+      id: '1793869245975'
+      position:
+        x: 2092
+        y: 1439.8333333333333
+      positionAbsolute:
+        x: 2092
+        y: 1439.8333333333333
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        code: "\nimport json\nimport random\nimport time\n\nMAJOR = [\"愚者\", \"魔术师\"\
+          , \"女祭司\", \"女皇\", \"皇帝\", \"教皇\", \"恋人\", \"战车\",\n         \"力量\", \"\
+          隐士\", \"命运之轮\", \"正义\", \"倒吊人\", \"死神\", \"节制\", \"恶魔\",\n         \"高塔\"\
+          , \"星星\", \"月亮\", \"太阳\", \"审判\", \"世界\"]\n\nSUITS = [\"权杖\", \"圣杯\", \"\
+          宝剑\", \"星币\"]\nRANKS = [\"Ace\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\"\
+          , \"8\", \"9\", \"10\", \"侍从\", \"骑士\", \"王后\", \"国王\"]\n\nPOSITIONS = [\"\
+          过去\", \"现在\", \"未来\"]\n\n\ndef build_deck():\n    deck = [{\"card\": c,\
+          \ \"arcana\": \"major\"} for c in MAJOR]\n    for s in SUITS:\n        for\
+          \ r in RANKS:\n            deck.append({\"card\": s + r, \"arcana\": \"\
+          minor\"})\n    return deck\n\n\ndef main(query: str, topic = '') -> dict:\n\
+          \    seed = int(time.time() * 1000)\n    rng = random.Random(seed)\n\n \
+          \   deck = build_deck()\n    rng.shuffle(deck)\n\n    cards = []\n    for\
+          \ i, pos in enumerate(POSITIONS):\n        c = deck[i]\n        cards.append({\n\
+          \            \"pos\": pos,\n            \"card\": c[\"card\"],\n       \
+          \     \"arcana\": c[\"arcana\"],\n            \"orientation\": rng.choice([\"\
+          upright\", \"reversed\"]),\n        })\n\n    board = {\n        \"method\"\
+          : \"tarot\",\n        \"topic\": topic or \"\",\n        \"question\": query\
+          \ or \"\",\n        \"spread\": {\"id\": \"three_card\", \"name\": \"三牌阵\"\
+          , \"positions\": POSITIONS},\n        \"cards\": cards,\n        \"seed\"\
+          : seed,\n    }\n\n    lines = [\"【牌阵】三牌阵（过去 / 现在 / 未来）\"]\n    for c in\
+          \ cards:\n        ori = \"正位\" if c[\"orientation\"] == \"upright\" else\
+          \ \"逆位\"\n        lines.append(\"%s：%s（%s）\" % (c[\"pos\"], c[\"card\"],\
+          \ ori))\n\n    return {\n        \"board\": json.dumps(board, ensure_ascii=False),\n\
+          \        \"board_text\": \"\\n\".join(lines)\n    }"
+        code_language: python3
+        desc: 洗牌，抽牌
+        outputs:
+          board:
+            children: null
+            type: string
+          board_text:
+            children: null
+            type: string
+        selected: false
+        title: 操牌
+        type: code
+        variables:
+        - value_selector:
+          - sys
+          - query
+          value_type: string
+          variable: query
+        - value_selector:
+          - '1793876763202'
+          - topic
+          value_type: string
+          variable: topic
+      height: 80
+      id: '1793869250492'
+      position:
+        x: 1750
+        y: 1494.8333333333333
+      positionAbsolute:
+        x: 1750
+        y: 1494.8333333333333
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        code: "import json\nimport random\nimport time\n\nTRIGRAM = {\n    (1, 1,\
+          \ 1): \"乾\", (1, 1, 0): \"兑\", (1, 0, 1): \"离\", (1, 0, 0): \"震\",\n   \
+          \ (0, 1, 1): \"巽\", (0, 1, 0): \"坎\", (0, 0, 1): \"艮\", (0, 0, 0): \"坤\"\
+          ,\n}\n\nORDER = [\"乾\", \"兑\", \"离\", \"震\", \"巽\", \"坎\", \"艮\", \"坤\"\
+          ]\n\nNAMES = {\n    \"乾\": [\"乾\", \"履\", \"同人\", \"无妄\", \"姤\", \"讼\",\
+          \ \"遁\", \"否\"],\n    \"兑\": [\"夬\", \"兑\", \"革\", \"随\", \"大过\", \"困\"\
+          , \"咸\", \"萃\"],\n    \"离\": [\"大有\", \"睽\", \"离\", \"噬嗑\", \"鼎\", \"未济\"\
+          , \"旅\", \"晋\"],\n    \"震\": [\"大壮\", \"归妹\", \"丰\", \"震\", \"恒\", \"解\"\
+          , \"小过\", \"豫\"],\n    \"巽\": [\"小畜\", \"中孚\", \"家人\", \"益\", \"巽\", \"\
+          涣\", \"渐\", \"观\"],\n    \"坎\": [\"需\", \"节\", \"既济\", \"屯\", \"井\", \"\
+          坎\", \"蹇\", \"比\"],\n    \"艮\": [\"大畜\", \"损\", \"贲\", \"颐\", \"蛊\", \"\
+          蒙\", \"艮\", \"剥\"],\n    \"坤\": [\"泰\", \"临\", \"明夷\", \"复\", \"升\", \"\
+          师\", \"谦\", \"坤\"],\n}\n\nYAO = [\"初爻\", \"二爻\", \"三爻\", \"四爻\", \"五爻\"\
+          , \"上爻\"]\n\n\ndef main(query: str, topic: str = \"\") -> dict:\n    topic\
+          \ = str(topic or \"\").strip()\n    if topic not in (\"marriage\", \"matter\"\
+          , \"fortune\"):\n        topic = \"\"\n\n    seed = int(time.time() * 1000)\n\
+          \    rng = random.Random(seed)\n\n    tosses = []\n    for _ in range(6):\n\
+          \        coins = [3 if rng.random() < 0.5 else 2 for _ in range(3)]\n  \
+          \      tosses.append(sum(coins))\n\n    ben = [1 if t in (7, 9) else 0 for\
+          \ t in tosses]\n    bian = [(1 - b) if t in (6, 9) else b for t, b in zip(tosses,\
+          \ ben)]\n    dong = [i + 1 for i, t in enumerate(tosses) if t in (6, 9)]\n\
+          \n    def gua(lines):\n        lower = TRIGRAM[tuple(lines[0:3])]\n    \
+          \    upper = TRIGRAM[tuple(lines[3:6])]\n        return {\n            \"\
+          name\": NAMES[upper][ORDER.index(lower)],\n            \"upper\": upper,\n\
+          \            \"lower\": lower,\n            \"lines\": lines,\n        }\n\
+          \n    ben_gua = gua(ben)\n    bian_gua = gua(bian)\n\n    board = {\n  \
+          \      \"method\": \"liuyao\",\n        \"topic\": topic,\n        \"question\"\
+          : query or \"\",\n        \"tosses\": tosses,\n        \"ben_gua\": ben_gua,\n\
+          \        \"bian_gua\": bian_gua,\n        \"dong_yao\": dong,\n        \"\
+          seed\": seed,\n    }\n\n    lines = [\"【本卦】\" + ben_gua[\"name\"]]\n   \
+          \ if dong:\n        lines[0] += \"  之  【变卦】\" + bian_gua[\"name\"]\n   \
+          \ else:\n        lines.append(\"【变卦】无动爻，六爻皆静\")\n\n    for i in range(6):\n\
+          \        mark = \"  <动>\" if (i + 1) in dong else \"\"\n        lines.append(\"\
+          %s：%s%s\" % (YAO[i], \"阳\" if ben[i] else \"阴\", mark))\n\n    return {\n\
+          \        \"board\": json.dumps(board, ensure_ascii=False),\n        \"board_text\"\
+          : \"\\n\".join(lines),\n    }"
+        code_language: python3
+        desc: 摇卦，本卦变卦，装卦
+        outputs:
+          board:
+            children: null
+            type: string
+          board_text:
+            children: null
+            type: string
+        selected: false
+        title: 操卦
+        type: code
+        variables:
+        - value_selector:
+          - sys
+          - query
+          value_type: string
+          variable: query
+        - value_selector:
+          - '1793876763202'
+          - topic
+          value_type: string
+          variable: topic
+      height: 80
+      id: '1793869341162'
+      position:
+        x: 1750
+        y: 1764.8333333333333
+      positionAbsolute:
+        x: 1750
+        y: 1764.8333333333333
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        desc: board/method/topic
+        items:
+        - input_type: constant
+          operation: set
+          value: liuyao
+          variable_selector:
+          - conversation
+          - method
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1793876763202'
+          - topic
+          variable_selector:
+          - conversation
+          - topic
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1793869341162'
+          - board
+          variable_selector:
+          - conversation
+          - board
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1793869341162'
+          - board_text
+          variable_selector:
+          - conversation
+          - board_text
+        selected: false
+        title: 变量赋值 -六爻
+        type: assigner
+        version: '2'
+      height: 190
+      id: '1793869385233'
+      position:
+        x: 2796
+        y: 1709.8333333333333
+      positionAbsolute:
+        x: 2796
+        y: 1709.8333333333333
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        desc: 出生时间/性别/地点
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.8-flash
+          provider: langgenius/tongyi/tongyi
+        parameters:
+        - description: 出生公历日期。用户可能说「98年3月12日」「1998.3.12」「我是三月十二生的」，都要转成 YYYY-MM-DD
+          name: birth_date
+          required: false
+          type: string
+        - description: 出生时刻。可能说「下午两点」「未时」「14:30」，统一转成 HH:MM；没提到就留空
+          name: birth_time
+          required: false
+          type: string
+        - description: male 或 female
+          name: gender
+          required: false
+          type: string
+        query:
+        - sys
+        - query
+        reasoning_mode: prompt
+        selected: false
+        title: 参数提取器
+        type: parameter-extractor
+        vision:
+          enabled: false
+      height: 116
+      id: '1793869548338'
+      position:
+        x: 1750
+        y: 108
+      positionAbsolute:
+        x: 1750
+        y: 108
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: empty
+            id: 5bec1496-7003-43ad-be8b-97865a5fd2d6
+            value: ''
+            varType: string
+            variable_selector:
+            - conversation
+            - board
+          logical_operator: and
+        desc: 判断board
+        selected: false
+        title: 外部循环
+        type: if-else
+      height: 152
+      id: '1793870369850'
+      position:
+        x: 1750
+        y: 319.3333333333335
+      positionAbsolute:
+        x: 1750
+        y: 319.3333333333335
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        answer: 请选择一个占卜方式
+        selected: false
+        title: 直接回复 ：选择占卜方式
+        type: answer
+        variables: []
+      height: 100
+      id: '1793870424430'
+      position:
+        x: 2112
+        y: 295.3333333333335
+      positionAbsolute:
+        x: 2112
+        y: 295.3333333333335
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 1d696500-c908-45a3-99ea-68cd0b32e9e4
+            value: bazi
+            varType: string
+            variable_selector:
+            - conversation
+            - method
+          logical_operator: and
+        - case_id: 3e89f309-96f2-40f8-b545-d714c7aee661
+          conditions:
+          - comparison_operator: is
+            id: cfef0aeb-ee34-4979-9634-e12d4614dc78
+            value: tarot
+            varType: string
+            variable_selector:
+            - conversation
+            - method
+          logical_operator: and
+        - case_id: c04829df-fc47-4180-add6-9530d7e3f0bf
+          conditions:
+          - comparison_operator: is
+            id: 9892791f-161b-412f-8f0b-4e858e483f7d
+            value: liuyao
+            varType: string
+            variable_selector:
+            - conversation
+            - method
+          logical_operator: and
+        - case_id: 2d0c741c-6c79-44bb-94ad-c47cae26790a
+          conditions:
+          - comparison_operator: is
+            id: 0daa16d9-359f-4768-b49e-a592bd3e0644
+            value: almanac
+            varType: string
+            variable_selector:
+            - conversation
+            - method
+          logical_operator: and
+        - case_id: 77901009-95a8-4c25-9915-fb9a4f26c487
+          conditions:
+          - comparison_operator: is
+            id: aa02b892-3694-4423-be3a-405c733e7f6c
+            value: astrology
+            varType: string
+            variable_selector:
+            - conversation
+            - method
+          logical_operator: and
+        - case_id: c947b906-0d91-4add-bfd9-af14f060eee4
+          conditions:
+          - comparison_operator: is
+            id: 1d40fd28-5676-4470-9102-4ef6aebc31b8
+            value: ziwei
+            varType: string
+            variable_selector:
+            - conversation
+            - method
+          logical_operator: and
+        desc: method分流
+        selected: false
+        title: 判断卦
+        type: if-else
+      height: 392
+      id: '1793870490127'
+      position:
+        x: 3158
+        y: 1158.6666666666665
+      positionAbsolute:
+        x: 3158
+        y: 1158.6666666666665
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        dataset_ids:
+        - iuIA3U2YGhiX53U56qYIAneQD8dXdMu6Hhxvb1orRnw2DiQ5FvGPzd8XVhXgtHT0
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: qwen3-vl-rerank
+            provider: langgenius/tongyi/tongyi
+          score_threshold: 0.3
+          top_k: 5
+          weights: null
+        query_attachment_selector: []
+        query_variable_selector:
+        - conversation
+        - board_text
+        retrieval_mode: multiple
+        selected: false
+        title: 知识检索-八字
+        type: knowledge-retrieval
+      height: 90
+      id: '1793870557905'
+      position:
+        x: 3520
+        y: 614
+      positionAbsolute:
+        x: 3520
+        y: 614
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        dataset_ids:
+        - Un0QNe0rawuIP2UtM55sRO+lfguVUJ5hKl6BTbmRyL15yIOopDyOYuKapiVgWpSY
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: qwen3-vl-rerank
+            provider: langgenius/tongyi/tongyi
+          score_threshold: 0.3
+          top_k: 5
+          weights: null
+        query_attachment_selector: []
+        query_variable_selector:
+        - conversation
+        - board_text
+        retrieval_mode: multiple
+        selected: false
+        title: 知识检索-六爻
+        type: knowledge-retrieval
+      height: 90
+      id: '1793870569214'
+      position:
+        x: 3520
+        y: 1082
+      positionAbsolute:
+        x: 3520
+        y: 1082
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        dataset_ids:
+        - zXYKOCd5TP9O9TmoCh3zaJOhNtQjm7ma9rZ0IupW5uhs8xcQpq84yNuJzv6a6EV+
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: qwen3-vl-rerank
+            provider: langgenius/tongyi/tongyi
+          score_threshold: 0.3
+          top_k: 5
+          weights: null
+        query_attachment_selector: []
+        query_variable_selector:
+        - conversation
+        - board_text
+        retrieval_mode: multiple
+        selected: false
+        title: 知识检索-塔罗
+        type: knowledge-retrieval
+      height: 90
+      id: '1793870585983'
+      position:
+        x: 3520
+        y: 847.9999999999999
+      positionAbsolute:
+        x: 3520
+        y: 847.9999999999999
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        answer: 状态异常，请重新告诉我想算哪种（八字/塔罗/六爻）
+        selected: false
+        title: 错误
+        type: answer
+        variables: []
+      height: 116
+      id: '1793870915175'
+      position:
+        x: 3520
+        y: 1879
+      positionAbsolute:
+        x: 3520
+        y: 1879
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 808ae678-a357-466b-932a-786a1ef32f03
+            value: false
+            varType: boolean
+            variable_selector:
+            - '1793869169484'
+            - ok
+          logical_operator: and
+        selected: false
+        title: 判断日期
+        type: if-else
+      height: 124
+      id: '1793871454104'
+      position:
+        x: 2434
+        y: 104
+      positionAbsolute:
+        x: 2434
+        y: 104
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        answer: '{{#1793869169484.hint#}}'
+        selected: false
+        title: 防护措施
+        type: answer
+        variables: []
+      height: 102
+      id: '1793871468345'
+      position:
+        x: 3138
+        y: 0
+      positionAbsolute:
+        x: 3138
+        y: 0
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        code: "def main(query: str) -> dict:\n    q = (query or \"\").strip().lower()\n\
+          \n    MARRIAGE = [\"姻缘\", \"婚姻\", \"感情\", \"恋爱\", \"脱单\", \"结婚\", \"前任\"\
+          ,\n                \"暧昧\", \"分手\", \"对象\", \"伴侣\", \"桃花\", \"复合\", \"相亲\"\
+          ]\n    MATTER = [\"事业\", \"工作\", \"考试\", \"跳槽\", \"升职\", \"搬家\", \"搬迁\"\
+          ,\n              \"合作\", \"签约\", \"项目\", \"求职\", \"面试\", \"调动\", \"创业\"\
+          , \"offer\"]\n    FORTUNE = [\"运势\", \"运气\", \"财运\", \"健康\", \"流年\", \"\
+          平安\", \"灾\", \"病\"]\n\n    topic = \"\"\n\n    if not q or len(q) < 2:\n\
+          \n        return {\"topic\": \"\"}\n\n    for k in MARRIAGE:\n        if\
+          \ k in q:\n            topic = \"marriage\"\n            break\n\n    if\
+          \ not topic:\n        for k in MATTER:\n            if k in q:\n       \
+          \         topic = \"matter\"\n                break\n\n    if not topic:\n\
+          \        for k in FORTUNE:\n            if k in q:\n                topic\
+          \ = \"fortune\"\n                break\n\n    if not topic:\n        if\
+          \ \"marriage\" in q:\n            topic = \"marriage\"\n        elif \"\
+          matter\" in q or \"career\" in q:\n            topic = \"matter\"\n    \
+          \    elif \"fortune\" in q or \"luck\" in q:\n            topic = \"fortune\"\
+          \n\n    return {\"topic\": topic}"
+        code_language: python3
+        outputs:
+          topic:
+            children: null
+            type: string
+        selected: false
+        title: 提取关键字
+        type: code
+        variables:
+        - value_selector:
+          - sys
+          - query
+          value_type: string
+          variable: query
+      height: 52
+      id: '1793876763202'
+      position:
+        x: 342
+        y: 893.8333333333333
+      positionAbsolute:
+        x: 342
+        y: 893.8333333333333
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        code: "import json\n\n\ndef main(history: str, question: str, answer: str)\
+          \ -> dict:\n    raw = (history or \"\").strip()\n\n    try:\n        items\
+          \ = json.loads(raw) if raw.startswith(\"[\") else []\n    except Exception:\n\
+          \        items = []\n\n    if not isinstance(items, list):\n        items\
+          \ = []\n\n    items.append({\n        \"q\": (question or \"\").strip(),\n\
+          \        \"a\": (answer or \"\").strip(),\n    })\n\n    # 只保留最近 5 轮，防止\
+          \ history 无限膨胀\n    items = items[-5:]\n\n    return {\"new_history\": json.dumps(items,\
+          \ ensure_ascii=False)}"
+        code_language: python3
+        outputs:
+          new_history:
+            children: null
+            type: string
+        selected: false
+        title: 拉去历史记录
+        type: code
+        variables:
+        - value_selector:
+          - conversation
+          - history
+          value_type: string
+          variable: history
+        - value_selector:
+          - sys
+          - query
+          value_type: string
+          variable: question
+        - value_selector:
+          - '1793926082625'
+          - answer
+          value_type: string
+          variable: answer
+      height: 52
+      id: '1793878248332'
+      position:
+        x: 4908
+        y: 1267.1666666666665
+      positionAbsolute:
+        x: 4908
+        y: 1267.1666666666665
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1793878248332'
+          - new_history
+          variable_selector:
+          - conversation
+          - history
+        selected: false
+        title: 变量赋值-历史
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1793878385630'
+      position:
+        x: 5250
+        y: 1251.1666666666665
+      positionAbsolute:
+        x: 5250
+        y: 1251.1666666666665
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        advanced_settings:
+          group_enabled: true
+          groups:
+          - groupId: fd927941-b08a-4b0a-a49c-b876c9ed8123
+            group_name: context
+            output_type: string
+            variables:
+            - - '1793925584751'
+              - text
+            - - '1793925563180'
+              - text
+            - - '1793925574375'
+              - text
+            - - '1793936967075'
+              - text
+            - - '1793937462771'
+              - text
+            - - '1793945366132'
+              - text
+        output_type: array[object]
+        selected: false
+        title: 变量聚合器
+        type: variable-aggregator
+        variables:
+        - - '1793870585983'
+          - result
+        - - '1793870569214'
+          - result
+        - - '1793870557905'
+          - result
+      height: 238
+      id: '1793880150321'
+      position:
+        x: 4224
+        y: 1174.1666666666665
+      positionAbsolute:
+        x: 4224
+        y: 1174.1666666666665
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1793870557905'
+          - result
+        default_value:
+        - key: text
+          type: string
+          value: 这会儿解读服务有点忙，稍等半分钟再发一次好吗？  要是还不行，把问题换个说法发我，我重新起一卦。
+        error_strategy: default-value
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.8-flash
+          provider: langgenius/tongyi/tongyi
+        model_selector: null
+        prompt_template:
+        - id: 068bb8c7-ddc5-4a77-9482-d1b2a7eeb11f
+          role: system
+          text: "你是一位精通子平命理的命理师。判断必须严格基于给定的四柱。\n\n【基本规则】\n1. 只使用盘面提供的四柱、日主、五行分布，不得虚构大运、流年、节气信息。\n\
+            2. 先看日主强弱，再看五行生克关系，最后落到用户所问之事。\n3. 结合关注方向：情感看配偶宫（日支）与合冲，事业看用神与阻力，成长看性格结构，抉择看取舍倾向。\n\
+            4. 说明判断依据——依据哪个字、哪组生克关系，不要只下结论。\n5. 用自然段落，不要用表格。\n\n【追问处理】\n当【此前的解读】不为空时，说明本轮是追问：\n\
+            \n1. 先判断用户问的维度：\n   - 时间（「哪一年」「什么时候」）→ 盘面没有大运流年，必须明确说明「看不出具体年份，只能给出人生阶段的倾向」，绝不给具体年份\n\
+            \   - 关系（「我的婚姻怎么样」「对方是什么样的人」）→ 聚焦日支（配偶宫）与相关十神关系\n   - 事业（「适合做什么」「该不该换工作」）→\
+            \ 从日主五行强弱推导适配的方向与阻力\n   - 性格（「我是什么样的人」）→ 从日主与五行分布讲结构，不讲宿命\n   - 行动（「我该怎么办」）→\
+            \ 给可调整的方向，强调这是倾向不是定数\n\n2. 已经讲过的内容不要重复，换角度切入。\n\n3. 不要在追问里补全新的大运、流年、神煞——盘面没有就是没有。"
+        - id: c636e4fe-100f-47ac-bbd5-c16c058a3808
+          role: user
+          text: '【四柱】
+
+            {{#conversation.board_text#}}
+
+
+            【关注方向】
+
+            {{#conversation.topic#}}
+
+
+            【用户的问题】
+
+            {{#sys.query#}}
+
+
+            【此前的解读】
+
+            {{#conversation.history#}}
+
+
+            请据此解读，300 字以内。若【此前的解读】不为空，按追问规则处理，然后整理总结。'
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        title: 八字解读
+        type: llm
+        vision:
+          enabled: false
+      height: 154
+      id: '1793925563180'
+      position:
+        x: 3862
+        y: 582
+      positionAbsolute:
+        x: 3862
+        y: 582
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1793870585983'
+          - result
+        default_value:
+        - key: text
+          type: string
+          value: 这会儿解读服务有点忙，稍等半分钟再发一次好吗？  要是还不行，把问题换个说法发我，我重新起一卦。
+        error_strategy: default-value
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.8-flash
+          provider: langgenius/tongyi/tongyi
+        model_selector: null
+        prompt_template:
+        - id: bbf70a82-c1d8-4496-80b0-f777a53b5e05
+          role: system
+          text: "你是一位经验丰富的塔罗解读师。解读必须严格基于牌面。\n\n【基本规则】\n1. 只解读牌面上真实出现的牌，绝不引入牌面之外的牌。\n\
+            2. 按牌阵给出的位置理解：来处解释成因，当下解释状态，趋向解释趋势。\n3. 正逆位区别对待。逆位不等于坏，可能是阻塞、延迟或力量的向内转化。\n\
+            4. 结合关注方向：情感看关系与情感流动，事业看推进与阻力，成长看内在课题，抉择看取舍代价。\n5. 具体、有指向，避免「您会有好运」这类放之四海皆准的空话。\n\
+            6. 用自然段落，不要用表格。\n\n【追问处理】\n当【此前的解读】不为空时，说明本轮是追问，按以下规则处理：\n\n1. 先判断用户在问什么维度，再决定聚焦哪张牌：\n\
+            \   - 时间（「下个月」「明年」「什么时候」）→ 聚焦「趋向」位置，并结合逆位判断是否存在延迟\n   - 对方态度（「他怎么想」「他在意吗」）→\
+            \ 优先聚焦关系镜像中的对方位置；若牌阵无此位置，用「当下」牌反推\n   - 行动建议（「我该怎么做」「要不要主动」）→ 从牌面约束推导可执行的下一步，不给空泛鼓励\n\
+            \   - 细节追问（「具体指什么」）→ 就上一轮提到的那张牌展开，不要换牌\n\n2. 已经讲过的结论不要重复。对照【此前的解读】，换一个新的角度切入。\n\
+            \n3. 如果用户在问假设（「如果我……会怎样」），明确标注这是基于牌面的推演，不是牌面直接给出的结果。"
+        - id: 3d3ced06-3e3f-4da6-93e0-e75708c90b4c
+          role: user
+          text: '【牌面】
+
+            {{#conversation.board_text#}}
+
+
+            【关注方向】
+
+            {{#conversation.topic#}}
+
+
+            【用户的问题】
+
+            {{#sys.query#}}
+
+
+            【此前的解读】
+
+            {{#conversation.history#}}
+
+
+            请基于牌面给出解读，300 字以内。若【此前的解读】不为空，按追问规则处理，然后整理总结。。'
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        title: 塔罗解读
+        type: llm
+        vision:
+          enabled: false
+      height: 154
+      id: '1793925574375'
+      position:
+        x: 3862
+        y: 815.9999999999999
+      positionAbsolute:
+        x: 3862
+        y: 815.9999999999999
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1793870569214'
+          - result
+        default_value:
+        - key: text
+          type: string
+          value: 这会儿解读服务有点忙，稍等半分钟再发一次好吗？  要是还不行，把问题换个说法发我，我重新起一卦。
+        error_strategy: default-value
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.8-flash
+          provider: langgenius/tongyi/tongyi
+        model_selector: null
+        prompt_template:
+        - id: ee921fcb-aa70-4541-bf28-65997e1e50de
+          role: system
+          text: "你是一位精通六爻的卦师。判断必须严格基于给定的卦象。\n\n【基本规则】\n1. 只解读盘面中出现的本卦、变卦与动爻，不引入其他卦。\n\
+            2. 先讲本卦的整体格局，再讲动爻带来的变化，最后落到用户所问之事。\n3. 无动爻时以本卦为主；有动爻时以动爻位置的含义与变卦趋势为主。\n\
+            4. 结合关注方向：情感看关系走向与对方态度，事业看推进阻力与成事条件，成长看内在转变，抉择看取舍得失。\n5. 若盘面未提供纳甲、六亲、世应、旬空，只从卦象与爻位角度解读，不要补全这些内容。\n\
+            6. 给出可落地的建议，不要只说吉凶。\n7. 用自然段落，不要用表格。\n\n【追问处理】\n当【此前的解读】不为空时，说明本轮是追问：\n\
+            \n1. 先判断用户问的维度：\n   - 应期（「什么时候」「多久」「几月」）→ 以动爻所在的位置与变卦的方向推断趋势阶段；盘面没有干支，导致无法精确到具体日期，必须说明「只能给出阶段判断，不能定日」\n\
+            \   - 结果（「能不能成」「会不会」）→ 看动爻是否生克本卦、变卦是向好还是转弱\n   - 原因（「为什么会这样」）→ 就上一轮提到的那一爻展开，讲这一爻在卦中的位置与关系\n\
+            \   - 行动（「我该怎么做」）→ 从卦象约束推出可行的一步，不给空泛鼓励\n\n2. 已经讲过的结论不要重复，换角度切入。\n\n3.\
+            \ 用户问假设时，明确标注是基于卦象的推演，不是卦象直接显示的结果。"
+        - id: 93d02523-23cf-4dbf-8536-36a26549d008
+          role: user
+          text: '【卦象】
+
+            {{#conversation.board_text#}}
+
+
+            【关注方向】
+
+            {{#conversation.topic#}}
+
+
+            【用户的问题】
+
+            {{#sys.query#}}
+
+
+            【此前的解读】
+
+            {{#conversation.history#}}
+
+
+
+            请据此解卦，300 字以内。若【此前的解读】不为空，按追问规则处理，然后整理总结。'
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        title: 六爻解读
+        type: llm
+        vision:
+          enabled: false
+      height: 154
+      id: '1793925584751'
+      position:
+        x: 3862
+        y: 1050
+      positionAbsolute:
+        x: 3862
+        y: 1050
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        code: "def main(v) -> dict:\n    if isinstance(v, dict):\n        for key\
+          \ in (\"value\", \"output\", \"text\", \"result\", \"answer\"):\n      \
+          \      val = v.get(key)\n            if isinstance(val, str) and val.strip():\n\
+          \                return {\"answer\": val}\n\n        vals = [str(x) for\
+          \ x in v.values()\n                if isinstance(x, (str, int, float))]\n\
+          \        return {\"answer\": \"\\n\".join(vals)}\n\n    if isinstance(v,\
+          \ list):\n        return {\"answer\": \"\\n\".join(str(x) for x in v)}\n\
+          \n    return {\"answer\": str(v)}"
+        code_language: python3
+        outputs:
+          answer:
+            children: null
+            type: string
+        selected: false
+        title: 格式转换
+        type: code
+        variables:
+        - value_selector:
+          - '1793880150321'
+          - context
+          value_type: object
+          variable: v
+      height: 52
+      id: '1793926082625'
+      position:
+        x: 4566
+        y: 1267.1666666666665
+      positionAbsolute:
+        x: 4566
+        y: 1267.1666666666665
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        answer: '{{#sys.query#}}
+
+          这种问题我暂时回答不上来，但是我可以在占卜方面帮助你
+
+
+          你可以直接说想要哪种方式：
+
+
+          · 塔罗——看当下的趋势和选择
+
+          · 六爻——针对一件具体的事看结果
+
+          · 八字——从出生时间看整体的节奏
+
+          · 黄历——查某一天适合做什么
+
+          · 星座——看看性格与倾向
+
+          · 紫微——排一张命盘看宫位
+
+
+          或者说说你最近在纠结什么，我帮你选一种。'
+        selected: false
+        title: 引导
+        type: answer
+        variables: []
+      height: 246
+      id: '1793928005028'
+      position:
+        x: 1750
+        y: 2056.8333333333335
+      positionAbsolute:
+        x: 1750
+        y: 2056.8333333333335
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        code: "def main(query: str, pending: str = \"\", board: str = \"\") -> dict:\n\
+          \    q = str(query or \"\").strip()\n    p = str(pending or \"\").strip()\n\
+          \    b = str(board or \"\").strip()\n\n    METHOD_WORDS = [\"塔罗\", \"六爻\"\
+          , \"八字\", \"紫微\", \"星座\", \"抽牌\", \"摇卦\", \"起卦\", \"换一种\", \"换个方式\"]\n \
+          \   CHITCHAT = [\"你好\", \"您好\", \"在吗\", \"谢谢\", \"多谢\", \"再见\", \"拜拜\",\
+          \ \"好的\", \"嗯\", \"哈哈\"]\n\n    if any(k in q for k in METHOD_WORDS):\n\
+          \        return {\"route\": \"\"}\n\n    if any(q.startswith(k) for k in\
+          \ CHITCHAT) or len(q) <= 2:\n        return {\"route\": \"\"}\n\n    if\
+          \ p in (\"bazi\", \"ziwei\", \"astrology\"):\n        return {\"route\"\
+          : p}\n\n    if b:\n        return {\"route\": \"followup\"}\n\n    return\
+          \ {\"route\": \"\"}"
+        code_language: python3
+        outputs:
+          route:
+            children: null
+            type: string
+        selected: false
+        title: 输出加固判断
+        type: code
+        variables:
+        - value_selector:
+          - sys
+          - query
+          value_type: string
+          variable: query
+        - value_selector:
+          - conversation
+          - pending
+          value_type: string
+          variable: pending
+        - value_selector:
+          - conversation
+          - board
+          value_type: string
+          variable: board
+      height: 52
+      id: '1793928618366'
+      position:
+        x: 684
+        y: 893.8333333333333
+      positionAbsolute:
+        x: 684
+        y: 893.8333333333333
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 33564964-c9d9-44bb-a263-3b4b0e4e4841
+            value: bazi
+            varType: string
+            variable_selector:
+            - '1793928618366'
+            - route
+          logical_operator: and
+        - case_id: 17b2bccb-7817-4866-ab71-ecb4660d550c
+          conditions:
+          - comparison_operator: is
+            id: fc4bf975-6cee-41c3-b1f3-3e061179110a
+            value: followup
+            varType: string
+            variable_selector:
+            - '1793928618366'
+            - route
+          logical_operator: and
+        - case_id: 4a7463f0-dac8-4515-9495-24a0afcc8af7
+          conditions:
+          - comparison_operator: is
+            id: c8d6fcfa-ffd8-44aa-afce-e4714c889c6e
+            value: astrology
+            varType: string
+            variable_selector:
+            - '1793928618366'
+            - route
+          logical_operator: and
+        - case_id: eda689f5-3caa-4ed1-90d9-16aa6ab07992
+          conditions:
+          - comparison_operator: contains
+            id: d9c62339-dbfa-491a-aacc-339ea8e36fdf
+            value: ziwei
+            varType: string
+            variable_selector:
+            - '1793928618366'
+            - route
+          logical_operator: and
+        selected: false
+        title: 判断数据
+        type: if-else
+      height: 316
+      id: '1793928828480'
+      position:
+        x: 1026
+        y: 761.8333333333333
+      positionAbsolute:
+        x: 1026
+        y: 761.8333333333333
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        items:
+        - input_type: constant
+          operation: set
+          value: bazi
+          variable_selector:
+          - conversation
+          - pending
+        selected: false
+        title: pending设置
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1793929109966'
+      position:
+        x: 2796
+        y: 9
+      positionAbsolute:
+        x: 2796
+        y: 9
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        code: "import json\nimport re\nfrom datetime import date, timedelta\n\nGAN\
+          \ = \"甲乙丙丁戊己庚辛壬癸\"\nZHI = \"子丑寅卯辰巳午未申酉戌亥\"\nSHENGXIAO = \"鼠牛虎兔龙蛇马羊猴鸡狗猪\"\
+          \nJIANCHU = [\"建\", \"除\", \"满\", \"平\", \"定\", \"执\", \"破\", \"危\", \"\
+          成\", \"收\", \"开\", \"闭\"]\nWEEK = \"一二三四五六日\"\n\nYI = {\n    \"建\": \"出行、上任、会友\"\
+          , \"除\": \"除旧、疗病、扫舍\",\n    \"满\": \"祭祀、祈福、开市\", \"平\": \"修造、平治道涂\",\n \
+          \   \"定\": \"嫁娶、订盟、安床\", \"执\": \"捕捉、纳畜、修造\",\n    \"破\": \"破屋坏垣、求医\", \"\
+          危\": \"安床、祭祀、祈福\",\n    \"成\": \"嫁娶、开市、入学、入宅\", \"收\": \"纳财、捕捉、进人口\",\n\
+          \    \"开\": \"开市、出行、嫁娶、入学\", \"闭\": \"筑堤、埋葬、纳财\",\n}\nJI = {\n    \"建\"\
+          : \"动土、开仓、掘井\", \"除\": \"嫁娶、出行\",\n    \"满\": \"服药、栽种\", \"平\": \"开渠、栽种\"\
+          ,\n    \"定\": \"诉讼、出行\", \"执\": \"开市、出行\",\n    \"破\": \"嫁娶、开市、出行\", \"\
+          危\": \"登高、行船\",\n    \"成\": \"诉讼\", \"收\": \"开市、出行\",\n    \"开\": \"安葬、动土\"\
+          , \"闭\": \"开市、出行、求医\",\n}\nTERM = {1: 6, 2: 4, 3: 6, 4: 5, 5: 6, 6: 6,\n\
+          \        7: 7, 8: 8, 9: 8, 10: 8, 11: 7, 12: 7}\nDAY_OFFSET = 49\n\n\ndef\
+          \ parse_target(q):\n    t = str(q or \"\")\n    today = date.today()\n \
+          \   if \"大后天\" in t:\n        return today + timedelta(days=3), False\n\
+          \    if \"后天\" in t:\n        return today + timedelta(days=2), False\n\
+          \    if \"明天\" in t or \"明日\" in t:\n        return today + timedelta(days=1),\
+          \ False\n    if \"昨天\" in t:\n        return today - timedelta(days=1),\
+          \ True\n\n    m = re.search(r\"(\\d{4})\\D{1,2}(\\d{1,2})\\D{1,2}(\\d{1,2})\"\
+          , t)\n    if m:\n        try:\n            return date(int(m.group(1)),\
+          \ int(m.group(2)), int(m.group(3))), False\n        except Exception:\n\
+          \            pass\n\n    m = re.search(r\"(\\d{1,2})\\s*月\\s*(\\d{1,2})\"\
+          , t)\n    if m:\n        try:\n            return date(today.year, int(m.group(1)),\
+          \ int(m.group(2))), False\n        except Exception:\n            pass\n\
+          \n    return today, False\n\n\ndef main(query: str, topic: str = \"\") ->\
+          \ dict:\n    topic = str(topic or \"\").strip()\n    if topic not in (\"\
+          marriage\", \"matter\", \"fortune\", \"growth\", \"choice\"):\n        topic\
+          \ = \"\"\n\n    target, guessed = parse_target(query)\n    y, mo, d = target.year,\
+          \ target.month, target.day\n\n    a = (14 - mo) // 12\n    y2 = y + 4800\
+          \ - a\n    m2 = mo + 12 * a - 3\n    jdn = d + (153 * m2 + 2) // 5 + 365\
+          \ * y2 + y2 // 4 - y2 // 100 + y2 // 400 - 32045\n    dg = (jdn + DAY_OFFSET)\
+          \ % 10\n    dz = (jdn + DAY_OFFSET) % 12\n\n    mz = mo % 12\n    if d <\
+          \ TERM.get(mo, 6):\n        mz = (mo - 1) % 12\n\n    name = JIANCHU[(dz\
+          \ - mz) % 12]\n    chong_zhi = (dz + 6) % 12\n\n    board = {\n        \"\
+          method\": \"almanac\",\n        \"topic\": topic,\n        \"date\": \"\
+          %04d-%02d-%02d\" % (y, mo, d),\n        \"weekday\": \"星期\" + WEEK[target.weekday()],\n\
+          \        \"day_ganzhi\": GAN[dg] + ZHI[dz],\n        \"jianchu\": name,\n\
+          \        \"yi\": YI[name].split(\"、\"),\n        \"ji\": JI[name].split(\"\
+          、\"),\n        \"chong\": SHENGXIAO[chong_zhi],\n        \"precision\":\
+          \ \"simplified\",\n    }\n\n    lines = [\n        \"【日期】%s %s\" % (board[\"\
+          date\"], board[\"weekday\"]),\n        \"【日柱】%s\" % board[\"day_ganzhi\"\
+          ],\n        \"【建除】%s日\" % name,\n        \"【宜】%s\" % YI[name],\n       \
+          \ \"【忌】%s\" % JI[name],\n        \"【冲】冲%s\" % SHENGXIAO[chong_zhi],\n  \
+          \      \"（简化黄历，未含农历、节气交接与神煞）\",\n    ]\n\n    return {\n        \"board\"\
+          : json.dumps(board, ensure_ascii=False),\n        \"board_text\": \"\\n\"\
+          .join(lines),\n    }"
+        code_language: python3
+        outputs:
+          board:
+            children: null
+            type: string
+          board_text:
+            children: null
+            type: string
+        selected: false
+        title: 黄历计算
+        type: code
+        variables:
+        - value_selector:
+          - sys
+          - query
+          value_type: string
+          variable: query
+        - value_selector:
+          - '1793876763202'
+          - topic
+          value_type: string
+          variable: topic
+      height: 52
+      id: '1793936774506'
+      position:
+        x: 1750
+        y: 1924.8333333333333
+      positionAbsolute:
+        x: 1750
+        y: 1924.8333333333333
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        items:
+        - input_type: constant
+          operation: set
+          value: almanac
+          variable_selector:
+          - conversation
+          - method
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1793876763202'
+          - topic
+          variable_selector:
+          - conversation
+          - topic
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1793936774506'
+          - board
+          variable_selector:
+          - conversation
+          - board
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1793936774506'
+          - board_text
+          variable_selector:
+          - conversation
+          - board_text
+        selected: false
+        title: 变量赋值-黄历
+        type: assigner
+        version: '2'
+      height: 162
+      id: '1793936833237'
+      position:
+        x: 2092
+        y: 1869.8333333333333
+      positionAbsolute:
+        x: 2092
+        y: 1869.8333333333333
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        dataset_ids:
+        - mbOeMwU9WnUhIO5XZ714kDm5o2ngh5hkYrWwwYDASGnbyAuVy3LXcZBhAbw3hKtc
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: qwen3-vl-rerank
+            provider: langgenius/tongyi/tongyi
+          score_threshold: 0.3
+          top_k: 5
+          weights: null
+        query_attachment_selector: []
+        query_variable_selector:
+        - '1793868656846'
+        - sys.query
+        retrieval_mode: multiple
+        selected: false
+        title: 知识检索-黄历
+        type: knowledge-retrieval
+      height: 90
+      id: '1793936937944'
+      position:
+        x: 3520
+        y: 1301
+      positionAbsolute:
+        x: 3520
+        y: 1301
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1793936937944'
+          - result
+        default_value:
+        - key: text
+          type: string
+          value: 这会儿解读服务有点忙，稍等半分钟再发一次好吗？  要是还不行，把问题换个说法发我，我重新起一卦。
+        error_strategy: default-value
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.8-flash
+          provider: langgenius/tongyi/tongyi
+        model_selector: null
+        prompt_template:
+        - id: 74f79f72-1adc-4935-a225-9e66fbeb8a5e
+          role: system
+          text: '你是一位熟悉传统历法与择日的顾问。判断必须严格基于给定的日期数据。
+
+
+            规则：
+
+            1. 只使用盘面提供的日柱、建除、宜忌、冲煞，不引入农历日期、神煞、吉时。
+
+            2. 先说明这一天的整体性质（建除十二神），再结合用户要做的事判断是否相宜。
+
+            3. 用户问的事如果不在宜忌列表里，说明「盘面未覆盖此事」，再给一般性建议，不要硬套。
+
+            4. 冲煞只作提醒，不要制造恐慌。
+
+            5. 给出具体的时间安排建议。
+
+            6. 用自然段落，不要用表格。'
+        - id: efb7b202-4b6f-4ed9-a78b-1e5867bbbcb9
+          role: user
+          text: '【日期资料】
+
+            {{#conversation.board_text#}}
+
+
+            【关注方向】
+
+            {{#conversation.topic#}}
+
+
+            【用户的问题】
+
+            {{#sys.query#}}
+
+
+            请据此解读，250 字以内。'
+        selected: false
+        title: 黄历解读
+        type: llm
+        vision:
+          enabled: false
+      height: 124
+      id: '1793936967075'
+      position:
+        x: 3862
+        y: 1284
+      positionAbsolute:
+        x: 3862
+        y: 1284
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        code: "import json\nimport re\n\nBOUNDS = [\n    (1, 20, \"水瓶\"), (2, 19,\
+          \ \"双鱼\"), (3, 21, \"白羊\"), (4, 20, \"金牛\"),\n    (5, 21, \"双子\"), (6, 22,\
+          \ \"巨蟹\"), (7, 23, \"狮子\"), (8, 23, \"处女\"),\n    (9, 23, \"天秤\"), (10,\
+          \ 24, \"天蝎\"), (11, 23, \"射手\"), (12, 22, \"摩羯\"),\n]\n\nRANGE = {\n   \
+          \ \"白羊\": \"3/21–4/19\", \"金牛\": \"4/20–5/20\", \"双子\": \"5/21–6/21\",\n\
+          \    \"巨蟹\": \"6/22–7/22\", \"狮子\": \"7/23–8/22\", \"处女\": \"8/23–9/22\"\
+          ,\n    \"天秤\": \"9/23–10/23\", \"天蝎\": \"10/24–11/22\", \"射手\": \"11/23–12/21\"\
+          ,\n    \"摩羯\": \"12/22–1/19\", \"水瓶\": \"1/20–2/18\", \"双鱼\": \"2/19–3/20\"\
+          ,\n}\n\nELEMENT = {\n    \"白羊\": \"火象\", \"狮子\": \"火象\", \"射手\": \"火象\"\
+          ,\n    \"金牛\": \"土象\", \"处女\": \"土象\", \"摩羯\": \"土象\",\n    \"双子\": \"风象\"\
+          , \"天秤\": \"风象\", \"水瓶\": \"风象\",\n    \"巨蟹\": \"水象\", \"天蝎\": \"水象\", \"\
+          双鱼\": \"水象\",\n}\n\nMODE = {\n    \"白羊\": \"基本\", \"巨蟹\": \"基本\", \"天秤\"\
+          : \"基本\", \"摩羯\": \"基本\",\n    \"金牛\": \"固定\", \"狮子\": \"固定\", \"天蝎\": \"\
+          固定\", \"水瓶\": \"固定\",\n    \"双子\": \"变动\", \"处女\": \"变动\", \"射手\": \"变动\"\
+          , \"双鱼\": \"变动\",\n}\n\nRULER = {\n    \"白羊\": \"火星\", \"金牛\": \"金星\", \"\
+          双子\": \"水星\", \"巨蟹\": \"月亮\",\n    \"狮子\": \"太阳\", \"处女\": \"水星\", \"天秤\"\
+          : \"金星\", \"天蝎\": \"火星\",\n    \"射手\": \"木星\", \"摩羯\": \"土星\", \"水瓶\": \"\
+          土星\", \"双鱼\": \"海王星\",\n}\n\n\ndef parse_birth(q):\n    t = str(q or \"\"\
+          )\n\n    m = re.search(r\"(\\d{4})\\D{1,2}(\\d{1,2})\\D{1,2}(\\d{1,2})\"\
+          , t)\n    if m:\n        return int(m.group(1)), int(m.group(2)), int(m.group(3))\n\
+          \n    m = re.search(r\"(\\d{2})\\s*年\\s*(\\d{1,2})\\s*月\\s*(\\d{1,2})\"\
+          , t)\n    if m:\n        y = int(m.group(1))\n        y += 2000 if y <=\
+          \ 30 else 1900\n        return y, int(m.group(2)), int(m.group(3))\n\n \
+          \   m = re.search(r\"(\\d{1,2})\\s*月\\s*(\\d{1,2})\", t)\n    if m:\n  \
+          \      return None, int(m.group(1)), int(m.group(2))\n\n    return None\n\
+          \n\ndef sun_sign(mo, d):\n    for i in range(12, 0, -1):\n        bm, bd,\
+          \ name = BOUNDS[i - 1]\n        if (mo, d) >= (bm, bd):\n            return\
+          \ name\n    return \"摩羯\"\n\n\ndef main(query: str, topic: str = \"\") ->\
+          \ dict:\n    topic = str(topic or \"\").strip()\n    if topic not in (\"\
+          marriage\", \"matter\", \"fortune\", \"growth\", \"choice\"):\n        topic\
+          \ = \"\"\n\n    parsed = parse_birth(query)\n    if not parsed:\n      \
+          \  return {\n            \"ok\": False,\n            \"hint\": \"我需要你的出生日期（公历月日即可），比如「3月12日」或「1998年3月12日」。\"\
+          ,\n            \"board\": \"\",\n            \"board_text\": \"\",\n   \
+          \     }\n\n    y, mo, d = parsed\n    if not (1 <= mo <= 12 and 1 <= d <=\
+          \ 31):\n        return {\n            \"ok\": False,\n            \"hint\"\
+          : \"这个日期看起来不太对，能再确认一下月和日吗？\",\n            \"board\": \"\",\n          \
+          \  \"board_text\": \"\",\n        }\n\n    sign = sun_sign(mo, d)\n\n  \
+          \  board = {\n        \"method\": \"astrology\",\n        \"topic\": topic,\n\
+          \        \"birth\": {\"year\": y, \"month\": mo, \"day\": d},\n        \"\
+          sun_sign\": sign,\n        \"element\": ELEMENT[sign],\n        \"mode\"\
+          : MODE[sign],\n        \"ruler\": RULER[sign],\n        \"precision\": \"\
+          simplified\",\n    }\n\n    lines = [\n        \"【出生日期】%s\" % (\"%d-%02d-%02d\"\
+          \ % (y, mo, d) if y else \"%d月%d日\" % (mo, d)),\n        \"【太阳星座】%s（%s）\"\
+          \ % (sign, RANGE[sign]),\n        \"【元素】%s\" % ELEMENT[sign],\n        \"\
+          【模式】%s\" % MODE[sign],\n        \"【守护星】%s\" % RULER[sign],\n        \"（仅计算太阳星座，月亮、上升与宫位未计算）\"\
+          ,\n    ]\n\n    return {\n        \"ok\": True,\n        \"hint\": \"\"\
+          ,\n        \"board\": json.dumps(board, ensure_ascii=False),\n        \"\
+          board_text\": \"\\n\".join(lines),\n    }"
+        code_language: python3
+        outputs:
+          board:
+            children: null
+            type: string
+          board_text:
+            children: null
+            type: string
+          hint:
+            children: null
+            type: string
+          ok:
+            children: null
+            type: boolean
+        selected: false
+        title: 星座计算
+        type: code
+        variables:
+        - value_selector:
+          - sys
+          - query
+          value_type: string
+          variable: query
+        - value_selector:
+          - '1793876763202'
+          - topic
+          value_type: string
+          variable: topic
+      height: 52
+      id: '1793937256528'
+      position:
+        x: 1750
+        y: 673.1666666666665
+      positionAbsolute:
+        x: 1750
+        y: 673.1666666666665
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        items:
+        - input_type: constant
+          operation: set
+          value: astrology
+          variable_selector:
+          - conversation
+          - method
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1793876763202'
+          - topic
+          variable_selector:
+          - conversation
+          - topic
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1793937256528'
+          - board
+          variable_selector:
+          - conversation
+          - board
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1793937256528'
+          - board_text
+          variable_selector:
+          - conversation
+          - board_text
+        - input_type: constant
+          operation: set
+          value: ''''''
+          variable_selector:
+          - conversation
+          - pending
+        selected: false
+        title: 变量赋值-星座
+        type: assigner
+        version: '2'
+      height: 188
+      id: '1793937362536'
+      position:
+        x: 2454
+        y: 717.6666666666665
+      positionAbsolute:
+        x: 2454
+        y: 717.6666666666665
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        dataset_ids:
+        - D67uFwvsnp2pn3AQMKxJx8iiYrb3QT2OBdMXcp4I93yhGTBB+A2z0llvRcGUPOCf
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: qwen3-vl-rerank
+            provider: langgenius/tongyi/tongyi
+          score_threshold: 0.3
+          top_k: 5
+          weights: null
+        query_attachment_selector: []
+        query_variable_selector:
+        - '1793868656846'
+        - sys.query
+        retrieval_mode: multiple
+        selected: false
+        title: 知识检索-星座
+        type: knowledge-retrieval
+      height: 90
+      id: '1793937440889'
+      position:
+        x: 3520
+        y: 1505
+      positionAbsolute:
+        x: 3520
+        y: 1505
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1793937440889'
+          - result
+        default_value:
+        - key: text
+          type: string
+          value: 这会儿解读服务有点忙，稍等半分钟再发一次好吗？  要是还不行，把问题换个说法发我，我重新起一卦。
+        error_strategy: default-value
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.8-flash
+          provider: langgenius/tongyi/tongyi
+        model_selector: null
+        prompt_template:
+        - id: 93802a18-f9a9-4654-b050-6afc8ed60c83
+          role: system
+          text: "你是一位熟悉现代占星的顾问。判断必须严格基于给定的星座数据。\n\n【基本规则】\n1. 只使用盘面提供的太阳星座、元素、模式、守护星，不引入月亮、上升、宫位、相位。\n\
+            2. 先讲太阳星座的核心特质，再结合元素与模式展开，最后落到用户所问之事。\n3. 结合关注方向：情感看关系中的表达方式，事业看能量投放方式，成长看需要发展的面向，抉择看取舍倾向。\n\
+            4. 星座描述是倾向而非定论，用「更容易」「倾向于」这类措辞，不要说「你就是」。\n5. 用自然段落，不要用表格。\n\n【追问处理】\n\
+            当【此前的解读】不为空时：\n\n1. 判断维度：\n   - 性格（「我是什么样的人」）→ 从元素与模式切入，讲结构不讲宿命\n   -\
+            \ 关系（「我们合不合」）→ 只从太阳星座的元素互动讲，说明没有合盘数据，结论有限\n   - 时间（「什么时候」）→ 盘面没有行运数据，明确说看不出具体时段\n\
+            \   - 行动（「我该怎么做」）→ 给可调整的方向\n\n2. 已讲过的不重复，换角度。\n\n3. 不补算月亮、上升、宫位——盘面没有就是没有。"
+        - id: edc29530-c587-4bf9-b332-07947f77abc9
+          role: user
+          text: '【星座资料】
+
+            {{#conversation.board_text#}}
+
+
+            【关注方向】
+
+            {{#conversation.topic#}}
+
+
+            【用户的问题】
+
+            {{#sys.query#}}
+
+
+            请据此解读，250 字以内。若【此前的解读】不为空，按追问规则处理，然后整理总结。'
+        selected: false
+        title: 星座解读
+        type: llm
+        vision:
+          enabled: false
+      height: 124
+      id: '1793937462771'
+      position:
+        x: 3862
+        y: 1488
+      positionAbsolute:
+        x: 3862
+        y: 1488
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        code: "import json\n\nGAN = \"甲乙丙丁戊己庚辛壬癸\"\nZHI = \"子丑寅卯辰巳午未申酉戌亥\"\nPALACES\
+          \ = [\"命宫\", \"兄弟\", \"夫妻\", \"子女\", \"财帛\", \"疾厄\",\n           \"迁移\"\
+          , \"交友\", \"官禄\", \"田宅\", \"福德\", \"父母\"]\n\nNAYIN = [\"金\", \"火\", \"木\"\
+          , \"土\", \"金\", \"火\", \"水\", \"土\", \"金\", \"木\",\n         \"水\", \"土\"\
+          , \"火\", \"木\", \"水\", \"金\", \"火\", \"木\", \"土\", \"金\",\n         \"火\"\
+          , \"水\", \"土\", \"金\", \"木\", \"水\", \"土\", \"火\", \"木\", \"水\"]\nJU = {\"\
+          水\": 2, \"木\": 3, \"金\": 4, \"土\": 5, \"火\": 6}\nJU_NAME = {2: \"水二局\",\
+          \ 3: \"木三局\", 4: \"金四局\", 5: \"土五局\", 6: \"火六局\"}\n\nZI_WEI_SERIES = [(\"\
+          紫微\", 0), (\"天机\", -1), (\"太阳\", -3),\n                 (\"武曲\", -4), (\"\
+          天同\", -5), (\"廉贞\", -8)]\nTIAN_FU_SERIES = [(\"天府\", 0), (\"太阴\", 1), (\"\
+          贪狼\", 2), (\"巨门\", 3),\n                  (\"天相\", 4), (\"天梁\", 5), (\"\
+          七杀\", 6), (\"破军\", 10)]\nSIHUA = {\n    \"甲\": (\"廉贞\", \"破军\", \"武曲\",\
+          \ \"太阳\"),\n    \"乙\": (\"天机\", \"天梁\", \"紫微\", \"太阴\"),\n    \"丙\": (\"\
+          天同\", \"天机\", \"文昌\", \"廉贞\"),\n    \"丁\": (\"太阴\", \"天同\", \"天机\", \"巨门\"\
+          ),\n    \"戊\": (\"贪狼\", \"太阴\", \"右弼\", \"天机\"),\n    \"己\": (\"武曲\", \"\
+          贪狼\", \"天梁\", \"文曲\"),\n    \"庚\": (\"太阳\", \"武曲\", \"太阴\", \"天同\"),\n \
+          \   \"辛\": (\"巨门\", \"太阳\", \"文曲\", \"文昌\"),\n    \"壬\": (\"天梁\", \"紫微\"\
+          , \"左辅\", \"武曲\"),\n    \"癸\": (\"破军\", \"巨门\", \"太阴\", \"贪狼\"),\n}\n\n\n\
+          def ganzhi_index(g, z):\n    for n in range(60):\n        if n % 10 == g\
+          \ and n % 12 == z:\n            return n\n    return 0\n\n\ndef ziwei_branch(ju,\
+          \ day):\n    borrow = (ju - day % ju) % ju\n    quotient = ((day + borrow)\
+          \ // ju) % 12\n    base = quotient - 1\n    steps = base + borrow if borrow\
+          \ % 2 == 0 else base - borrow\n    return (2 + steps) % 12\n\n\ndef tianfu_branch(zi):\n\
+          \    return (2 - (zi - 2)) % 12\n\n\ndef place_major(ju, day):\n    zi =\
+          \ ziwei_branch(ju, day)\n    fu = tianfu_branch(zi)\n    result = {}\n \
+          \   for name, off in ZI_WEI_SERIES:\n        result.setdefault((zi + off)\
+          \ % 12, []).append(name)\n    for name, off in TIAN_FU_SERIES:\n       \
+          \ result.setdefault((fu + off) % 12, []).append(name)\n    return result,\
+          \ zi, fu\n\ndef to_int(v, default=0):\n    try:\n        return int(v)\n\
+          \    except Exception:\n        pass\n    try:\n        return int(float(v))\n\
+          \    except Exception:\n        pass\n    if isinstance(v, str):\n     \
+          \   CN = {\"一\": 1, \"二\": 2, \"三\": 3, \"四\": 4, \"五\": 5,\n          \
+          \    \"六\": 6, \"七\": 7, \"八\": 8, \"九\": 9, \"十\": 10,\n              \"\
+          十一\": 11, \"十二\": 12}\n        return CN.get(v.strip(), default)\n    return\
+          \ default\n\ndef main(lunar_year=0, lunar_month=0, lunar_day=0, hour_index=0,\n\
+          \         gender=\"\", topic=\"\", query=\"\"):\n    y = to_int(lunar_year)\n\
+          \    m = to_int(lunar_month)\n    d = to_int(lunar_day)\n    h = to_int(hour_index)\n\
+          \n    topic = str(topic or \"\").strip()\n    if topic not in (\"marriage\"\
+          , \"matter\", \"fortune\", \"growth\", \"choice\"):\n        topic = \"\"\
+          \n\n    if y <= 0 or m <= 0 or d <= 0:\n        return {\n            \"\
+          ok\": False,\n            \"hint\": \"我还需要你的农历生日（几月初几）和大致出生时辰，比如「农历三月初五，未时」。\"\
+          ,\n            \"board\": \"\",\n            \"board_text\": \"\",\n   \
+          \     }\n\n    m = max(1, min(12, m))\n    d = max(1, min(30, d))\n    h\
+          \ = max(0, min(11, h))\n\n    yg = (y - 4) % 10\n    yz = (y - 4) % 12\n\
+          \n    ming = (2 + (m - 1) - h) % 12\n    shen = (2 + (m - 1) + h) % 12\n\
+          \n    yin_gan = (yg * 2 + 2) % 10\n    ming_gan = (yin_gan + (ming - 2)\
+          \ % 12) % 10\n\n    n = ganzhi_index(ming_gan, ming)\n    element = NAYIN[n\
+          \ // 2]\n    ju = JU[element]\n\n    stars, zi_wei, tian_fu = place_major(ju,\
+          \ d)\n\n    star_pos = {}\n    for pidx, names in stars.items():\n     \
+          \   for nm in names:\n            star_pos[nm] = ZHI[pidx]\n\n    hua_stars\
+          \ = SIHUA[GAN[yg]]\n    hualu, huaquan, huake, huaji = hua_stars\n    sihua\
+          \ = []\n    for star, label in ((hualu, \"禄\"), (huaquan, \"权\"), (huake,\
+          \ \"科\"), (huaji, \"忌\")):\n        pos = star_pos.get(star, \"未排\")\n \
+          \       sihua.append({\"star\": star, \"hua\": label, \"branch\": pos})\n\
+          \n    is_yang = yg % 2 == 0\n    male = str(gender or \"\").strip().lower()\
+          \ in (\"male\", \"男\")\n    forward = (is_yang and male) or (not is_yang\
+          \ and not male)\n\n    palaces = []\n    for i, name in enumerate(PALACES):\n\
+          \        idx = (ming - i) % 12\n        step = i if not forward else (-i)\
+          \ % 12\n        age_start = ju + step * 10\n        palaces.append({\n \
+          \           \"name\": name,\n            \"branch\": ZHI[idx],\n       \
+          \     \"stars\": stars.get(idx, []),\n            \"dayun\": \"%d-%d\" %\
+          \ (age_start, age_start + 9),\n        })\n\n    board = {\n        \"method\"\
+          : \"ziwei\",\n        \"topic\": topic,\n        \"question\": query or\
+          \ \"\",\n        \"lunar\": {\"year\": y, \"month\": m, \"day\": d, \"hour_index\"\
+          : h},\n        \"ganzhi_year\": GAN[yg] + ZHI[yz],\n        \"ming_gong\"\
+          : {\"branch\": ZHI[ming], \"ganzhi\": GAN[ming_gan] + ZHI[ming]},\n    \
+          \    \"shen_gong\": {\"branch\": ZHI[shen]},\n        \"wuxing_ju\": JU_NAME[ju],\n\
+          \        \"ziwei_branch\": ZHI[zi_wei],\n        \"tianfu_branch\": ZHI[tian_fu],\n\
+          \        \"palaces\": palaces,\n        \"dayun\": {\"direction\": \"顺行\"\
+          \ if forward else \"逆行\", \"start_age\": ju},\n        \"precision\": \"\
+          major_stars_with_sihua\",\n        \"sihua\": sihua,\n    }\n\n    lines\
+          \ = [\n        \"【农历】%d年%d月%d日 %s时\" % (y, m, d, ZHI[h]),\n        \"【年干支】%s\"\
+          \ % (GAN[yg] + ZHI[yz]),\n        \"【命宫】%s宫（%s）\" % (ZHI[ming], GAN[ming_gan]\
+          \ + ZHI[ming]),\n        \"【身宫】%s宫\" % ZHI[shen],\n        \"【五行局】%s\" %\
+          \ JU_NAME[ju],\n        \"【大限】%s，%d岁起运\" % (\"顺行\" if forward else \"逆行\"\
+          , ju),\n        \"【四化】\" + \" · \".join(\n        \"%s化%s（%s）\" % (s[\"\
+          star\"], s[\"hua\"], s[\"branch\"]) for s in sihua\n        ),\n       \
+          \ \"【十二宫】\",\n    ]\n    for p in palaces:\n        s = \"、\".join(p[\"\
+          stars\"]) if p[\"stars\"] else \"空宫\"\n        lines.append(\"  %s（%s）：%s\
+          \   大限 %s\" % (p[\"name\"], p[\"branch\"], s, p[\"dayun\"]))\n\n    lines.append(\"\
+          （已排十四主星与生年四化，未排辅星与神煞）\")\n\n    return {\n        \"ok\": True,\n      \
+          \  \"hint\": \"\",\n        \"board\": json.dumps(board, ensure_ascii=False),\n\
+          \        \"board_text\": \"\\n\".join(lines),\n    }"
+        code_language: python3
+        outputs:
+          board:
+            children: null
+            type: string
+          board_text:
+            children: null
+            type: string
+          hint:
+            children: null
+            type: string
+          ok:
+            children: null
+            type: boolean
+        selected: false
+        title: 紫薇换算
+        type: code
+        variables:
+        - value_selector:
+          - '17939466020990'
+          - lunar_year
+          value_type: number
+          variable: lunar_year
+        - value_selector:
+          - '17939466020990'
+          - lunar_month
+          value_type: number
+          variable: lunar_month
+        - value_selector:
+          - '17939466020990'
+          - lunar_day
+          value_type: number
+          variable: lunar_day
+        - value_selector:
+          - '17939466020990'
+          - hour_index
+          value_type: number
+          variable: hour_index
+        - value_selector:
+          - '1793868656846'
+          - gender
+          value_type: string
+          variable: gender
+        - value_selector:
+          - '1793876763202'
+          - topic
+          value_type: string
+          variable: topic
+        - value_selector:
+          - sys
+          - query
+          value_type: string
+          variable: query
+      height: 52
+      id: '1793943160199'
+      position:
+        x: 2092
+        y: 1165.1666666666665
+      positionAbsolute:
+        x: 2092
+        y: 1165.1666666666665
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: da5605d1-b16e-4122-863e-e589534be6f5
+            value: false
+            varType: boolean
+            variable_selector:
+            - '1793943160199'
+            - ok
+          logical_operator: and
+        selected: false
+        title: 判断农历
+        type: if-else
+      height: 124
+      id: '1793943335845'
+      position:
+        x: 2434
+        y: 1129.1666666666665
+      positionAbsolute:
+        x: 2434
+        y: 1129.1666666666665
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        answer: '{{#1793943160199.hint#}}'
+        selected: false
+        title: 防护-紫薇
+        type: answer
+        variables: []
+      height: 102
+      id: '1793943384227'
+      position:
+        x: 3158
+        y: 810.1666666666666
+      positionAbsolute:
+        x: 3158
+        y: 810.1666666666666
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        items:
+        - input_type: constant
+          operation: set
+          value: ziwei
+          variable_selector:
+          - conversation
+          - method
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1793876763202'
+          - topic
+          variable_selector:
+          - conversation
+          - topic
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1793943160199'
+          - board
+          variable_selector:
+          - conversation
+          - board
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1793943160199'
+          - board_text
+          variable_selector:
+          - conversation
+          - board_text
+        - input_type: constant
+          operation: set
+          value: ''''''
+          variable_selector:
+          - conversation
+          - pending
+        selected: false
+        title: 变量赋值-紫薇
+        type: assigner
+        version: '2'
+      height: 188
+      id: '1793943435543'
+      position:
+        x: 2796
+        y: 1260.6666666666665
+      positionAbsolute:
+        x: 2796
+        y: 1260.6666666666665
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        dataset_ids:
+        - 4gcRQsLLrMRpcT7FRTZnTDtRVo17g0n/4uzDOX6wgiOdEJz1IwdW402QzxRlhGEI
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: qwen3-vl-rerank
+            provider: langgenius/tongyi/tongyi
+          score_threshold: 0.3
+          top_k: 5
+          weights: null
+        query_attachment_selector: []
+        query_variable_selector:
+        - '1793868656846'
+        - sys.query
+        retrieval_mode: multiple
+        selected: false
+        title: 知识检索-紫薇
+        type: knowledge-retrieval
+      height: 90
+      id: '1793944010152'
+      position:
+        x: 3520
+        y: 1709
+      positionAbsolute:
+        x: 3520
+        y: 1709
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1793944010152'
+          - result
+        default_value:
+        - key: text
+          type: string
+          value: 这会儿解读服务有点忙，稍等半分钟再发一次好吗？  要是还不行，把问题换个说法发我，我重新起一卦。
+        error_strategy: default-value
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.8-flash
+          provider: langgenius/tongyi/tongyi
+        model_selector: null
+        prompt_template:
+        - id: 002662c7-35fd-4260-a634-9d3f2857afce
+          role: system
+          text: "你是一位精通紫微斗数的命理师。判断必须严格基于给定的盘面。\n\n【盘面包含】\n农历生辰、年干支、命宫、身宫、五行局、生年四化、十二宫与各宫主星、大限区间。\n\
+            \n【基本规则】\n1. 只使用盘面提供的信息。盘面没有辅星（左辅右弼、文昌文曲、天魁天钺、禄存、擎羊陀罗）和庙旺利陷，不要提及，也不要补算。\n\
+            2. 顺序：先看命宫主星定基调，再看身宫，再看四化落宫，最后落到所问之事对应的宫位。\n3. 空宫（无主星）的宫位，按「借对宫主星」来看，并说明这是借看。\n\
+            4. 四化是重点：化禄看机会与顺遂，化权看掌控与压力，化科看名声与助力，化忌看阻碍与执念。\n5. 说明判断依据——依据哪个宫、哪颗星、哪一化，不要只下结论。\n\
+            6. 用自然段落，不要用表格。\n\n【追问处理】\n当【此前的解读】不为空时：\n\n1. 按维度聚焦：\n   - 时间（「什么时候」「哪一年」）→\
+            \ 盘面只有大限区间，没有流年，只能判断处在哪个大限、这十年的主题，不给具体年份\n   - 关系（「感情怎么样」「对方什么人」）→ 聚焦夫妻宫主星与四化\n\
+            \   - 事业（「适合做什么」）→ 聚焦官禄宫与命宫三方\n   - 财（「财运如何」）→ 聚焦财帛宫与田宅宫\n   - 性格（「我是什么样的人」）→\
+            \ 命宫主星 + 身宫\n\n2. 已讲过的不要重复，换角度切入。\n\n3. 不补算辅星、流年、小限、神煞——盘面没有就是没有。"
+        - id: 8ee485cf-3a6f-4369-a99c-7392f75c18d8
+          role: user
+          text: '【盘面】
+
+            {{#conversation.board_text#}}
+
+
+            【关注方向】
+
+            {{#conversation.topic#}}
+
+
+            【用户的问题】
+
+            {{#sys.query#}}
+
+
+            【此前的解读】
+
+            {{#conversation.history#}}
+
+
+            请据此解读，300 字以内。若【此前的解读】不为空，按追问规则处理，然后整理总结。'
+        selected: false
+        title: 紫薇解读
+        type: llm
+        vision:
+          enabled: false
+      height: 124
+      id: '1793945366132'
+      position:
+        x: 3862
+        y: 1692
+      positionAbsolute:
+        x: 3862
+        y: 1692
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        items:
+        - input_type: constant
+          operation: set
+          value: ziwei
+          variable_selector:
+          - conversation
+          - pending
+        selected: false
+        title: pending设置-紫薇
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1793946111053'
+      position:
+        x: 2796
+        y: 985.6666666666666
+      positionAbsolute:
+        x: 2796
+        y: 985.6666666666666
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        desc: ''
+        instruction: '从用户的话里提取农历生日信息。
+
+
+          要求：
+
+          1. 中文数字必须转成阿拉伯数字，例如「初八」→ 8，「廿三」→ 23，「三十」→ 30。
+
+          2. 只提取用户明确说过的信息。没说的参数留空，绝对不要推测或补全。
+
+          3. 如果用户给的是公历日期，不要填到农历字段里。'
+        isInIteration: false
+        isInLoop: false
+        iteration_id: null
+        loop_id: null
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.8-flash
+          provider: langgenius/tongyi/tongyi
+        parameters:
+        - description: '农历年份，四位数字，例如 1998。
+
+            用户说「98 年」按 1998 处理，「零几年」按 2000 年段处理。
+
+            没有提到年份就留空，不要推测。'
+          name: lunar_year
+          required: false
+          type: number
+        - description: '农历月份，1 到 12 的整数。
+
+            正月=1，二月=2……冬月/十一月=11，腊月/十二月=12。
+
+            没有提到就留空。'
+          name: lunar_month
+          required: false
+          type: number
+        - description: '农历日，1 到 30 的整数。
+
+            初一=1，初十=10，十五=15，二十=20，廿三=23，三十=30。
+
+            遇到中文数字要转成阿拉伯数字。
+
+            没有提到就留空。'
+          name: lunar_day
+          required: false
+          type: number
+        - description: '出生时辰序号，用 0 到 11 表示：
+
+            子=0、丑=1、寅=2、卯=3、辰=4、巳=5、
+
+            午=6、未=7、申=8、酉=9、戌=10、亥=11。
+
+
+            如果用户给的是钟点，按此换算：
+
+            23:00–00:59 子(0)；01:00–02:59 丑(1)；03:00–04:59 寅(2)；
+
+            05:00–06:59 卯(3)；07:00–08:59 辰(4)；09:00–10:59 巳(5)；
+
+            11:00–12:59 午(6)；13:00–14:59 未(7)；15:00–16:59 申(8)；
+
+            17:00–18:59 酉(9)；19:00–20:59 戌(10)；21:00–22:59 亥(11)。
+
+
+            没有提到就留空。'
+          name: hour_index
+          required: false
+          type: number
+        query:
+        - sys
+        - query
+        reasoning_mode: prompt
+        selected: false
+        title: 参数提取器-紫薇
+        type: parameter-extractor
+        vision:
+          enabled: false
+      height: 88
+      id: '17939466020990'
+      position:
+        x: 1750
+        y: 1147.1666666666665
+      positionAbsolute:
+        x: 1750
+        y: 1147.1666666666665
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: ad8f26e5-6260-4f54-91a0-a2e03a5a15a4
+            value: false
+            varType: boolean
+            variable_selector:
+            - '1793937256528'
+            - ok
+          logical_operator: and
+        selected: false
+        title: 星座日期判断
+        type: if-else
+      height: 124
+      id: '1793947984850'
+      position:
+        x: 2092
+        y: 637.1666666666665
+      positionAbsolute:
+        x: 2092
+        y: 637.1666666666665
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        items:
+        - input_type: constant
+          operation: set
+          value: astrology
+          variable_selector:
+          - conversation
+          - pending
+        selected: false
+        title: PENDING设置-星座
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1793948009899'
+      position:
+        x: 2454
+        y: 544.6666666666665
+      positionAbsolute:
+        x: 2454
+        y: 544.6666666666665
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        answer: '{{#1793937256528.hint#}}'
+        selected: false
+        title: 防护-星座
+        type: answer
+        variables: []
+      height: 102
+      id: '1793948069130'
+      position:
+        x: 2796
+        y: 535.6666666666665
+      positionAbsolute:
+        x: 2796
+        y: 535.6666666666665
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        answer: '{{#1793926082625.answer#}}
+
+
+
+          ——
+
+          以上解读仅供娱乐参考，请理性看待'
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 118
+      id: answer
+      position:
+        x: 5592
+        y: 1234.1666666666665
+      positionAbsolute:
+        x: 5592
+        y: 1234.1666666666665
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    viewport:
+      x: -321.0000000000002
+      y: -281.0000000000001
+      zoom: 0.7
+  rag_pipeline_variables: []

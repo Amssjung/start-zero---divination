@@ -1,0 +1,25 @@
+# 依赖与缓存
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# 环境变量与本地配置
+.env
+.env.*
+!.env.example
+
+# 本地数据库数据
+mysql-data/
+mysql-data*/
+
+# 备份文件（含历史密码，绝不入库）
+*.bak
+*.bak_*
+*.bak2_*
+*.retired_*
+
+# 编辑器
+.idea/
+.vscode/
+.DS_Store
